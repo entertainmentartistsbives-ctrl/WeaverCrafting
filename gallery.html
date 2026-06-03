@@ -546,8 +546,9 @@
     <li><a href="products.html">Products</a></li>
     <li><a href="craftsmanship.html">Craftsmanship</a></li>
     <li><a href="gallery.html">Gallery</a></li>
-    <li><a href="about.html">About</a></li>
+    <li><a href="about.html">About Us</a></li>
     <li><a href="contact.html">Contact</a></li>
+    <li><a href="b2b.html">B2B Solutions</a></li>
   </ul>
   <a href="https://wa.me/919742630886" target="_blank" class="nav-cta">📱 WhatsApp Us</a>
   <div class="nav-hamburger" onclick="openMobileNav()"><span></span><span></span><span></span></div>
@@ -559,9 +560,10 @@
   <a href="products.html" onclick="closeMobileNav()">Products</a>
   <a href="craftsmanship.html" onclick="closeMobileNav()">Craftsmanship</a>
   <a href="gallery.html" onclick="closeMobileNav()">Gallery</a>
-  <a href="about.html" onclick="closeMobileNav()">About</a>
+  <a href="about.html" onclick="closeMobileNav()">About Us</a>
   <a href="#services" onclick="closeMobileNav()">Services</a>
   <a href="contact.html" onclick="closeMobileNav()">Contact</a>
+  <a href="b2b.html" onclick="closeMobileNav()">B2B Solutions</a>
 </div>
 
 <!-- Gallery -->
@@ -595,6 +597,7 @@
         <li><a href="products.html">Products</a></li>
         <li><a href="craftsmanship.html">Craftsmanship</a></li>
         <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="b2b.html">B2B Solutions</a></li>
       </ul>
     </div>
     <div>
@@ -633,7 +636,12 @@
   <span class="lightbox-nav lightbox-next" onclick="lightboxNav(1)">›</span>
 </div>
 
+<script src="config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+// ── SUPABASE SETUP ────────────────────────────────────
+const supabaseClient = window.supabase.createClient(WC_CONFIG.SUPABASE_URL, WC_CONFIG.SUPABASE_ANON_KEY);
+
 // ── DATA ──────────────────────────────────────────────
 const products = [
   
@@ -668,7 +676,7 @@ const testimonials = [
   {text:'WhatsApp response was instant. Got quotes, photos, and delivery all through WhatsApp. Supremely convenient experience!',name:'Kavya Iyer',loc:'HSR Layout, Bengaluru',init:'K'},
 ];
 
-const galleryImgs = [
+let galleryImgs = [
   'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=500&q=75',
   'https://images.unsplash.com/photo-1567016432779-094069958ea5?w=500&q=75',
   'https://images.unsplash.com/photo-1549187774-b4e9b0445b41?w=500&q=75',
@@ -726,9 +734,38 @@ function toggleProducts(){
 // ── GALLERY ────────────────────────────────────────────
 const gg = document.getElementById('galleryGrid');
 if (gg) {
-galleryImgs.forEach((src,i)=>{
-  gg.innerHTML += `<div class="gallery-item" onclick="openLightbox(${i})"><img src="${src}" alt="Gallery ${i+1}" loading="lazy"></div>`;
-});
+  async function loadGalleryImages() {
+    // 1. Fetch images from Supabase
+    const { data, error } = await supabaseClient
+      .from('images')
+      .select('image_url')
+      .eq('category', 'gallery')
+      .order('created_at', { ascending: false });
+    
+    if (error) {
+      console.error("Error fetching images:", error);
+      return;
+    }
+
+    // 2. Clear out any placeholders and update the array if data exists
+    if (data && data.length > 0) {
+      galleryImgs = data.map(row => row.image_url);
+    }
+
+    gg.innerHTML = ''; 
+
+    // 3. Render the fetched images or default ones
+    if (galleryImgs.length === 0) {
+      gg.innerHTML = '<p style="text-align:center; padding:40px; color:var(--muted); grid-column: 1 / -1;">No images found.</p>';
+    } else {
+      galleryImgs.forEach((src,i)=>{
+        gg.innerHTML += `<div class="gallery-item" onclick="openLightbox(${i})"><img src="${src}" alt="Gallery ${i+1}" loading="lazy"></div>`;
+      });
+    }
+  }
+  
+  // Call the function on load
+  loadGalleryImages();
 }
 
 // ── LIGHTBOX ───────────────────────────────────────────
@@ -786,10 +823,12 @@ document.querySelectorAll('a,button,.product-card,.gallery-item').forEach(el=>{
 
 // ── PARTICLES ─────────────────────────────────────────
 const pc = document.getElementById('particles');
+if (pc) {
 for(let i=0;i<8;i++){
   const p=document.createElement('div');p.className='particle';
   p.style.cssText=`left:${10+Math.random()*80}%;top:${10+Math.random()*70}%;animation-delay:${Math.random()*6}s;animation-duration:${4+Math.random()*4}s;width:${3+Math.random()*5}px;height:${3+Math.random()*5}px;`;
   pc.appendChild(p);
+}
 }
 
 // ── MOBILE NAV ─────────────────────────────────────────

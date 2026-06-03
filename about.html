@@ -357,23 +357,23 @@
   .btn-view-all:hover svg{transform:translateX(4px)}
 
   /* ── ABOUT ───────────────────────────────────── */
-  #about{background:var(--charcoal);position:relative;overflow:hidden}
+  #about{background:var(--warm-white);position:relative;overflow:hidden}
   #about::before{content:'';position:absolute;top:-100px;right:-100px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,.08),transparent 70%)}
   .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:center;max-width:1300px;margin:0 auto}
   .about-img-stack{position:relative;height:520px}
-  .about-img-main{position:absolute;top:0;left:0;width:75%;height:420px;border-radius:8px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.4)}
+  .about-img-main{position:absolute;top:0;left:0;width:75%;height:420px;border-radius:8px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.15)}
   .about-img-main img{width:100%;height:100%;object-fit:cover}
-  .about-img-accent{position:absolute;bottom:0;right:0;width:55%;height:280px;border-radius:8px;overflow:hidden;border:4px solid var(--charcoal);box-shadow:0 20px 60px rgba(0,0,0,.4)}
+  .about-img-accent{position:absolute;bottom:0;right:0;width:55%;height:280px;border-radius:8px;overflow:hidden;border:4px solid var(--warm-white);box-shadow:0 20px 60px rgba(0,0,0,.15)}
   .about-img-accent img{width:100%;height:100%;object-fit:cover}
   .about-badge{position:absolute;top:50%;left:55%;transform:translate(-50%,-50%);background:var(--gold);width:100px;height:100px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;z-index:3}
   .about-badge-num{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--charcoal);line-height:1}
   .about-badge-label{font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--charcoal)}
-  .about-text .section-title{color:#fff}
-  .about-text p{font-size:16px;line-height:1.8;color:rgba(255,255,255,.65);margin-top:20px}
+  .about-text .section-title{color:var(--charcoal)}
+  .about-text p{font-size:16px;line-height:1.8;color:var(--muted);margin-top:20px}
   .about-stats{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:48px}
   .stat{border-top:1px solid rgba(201,168,76,.25);padding-top:24px}
   .stat-num{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:600;color:var(--gold);line-height:1}
-  .stat-label{font-size:13px;color:rgba(255,255,255,.5);margin-top:4px;letter-spacing:.04em}
+  .stat-label{font-size:13px;color:var(--muted);margin-top:4px;letter-spacing:.04em}
 
   /* ── SERVICES ────────────────────────────────── */
   #services{background:var(--cream)}
@@ -546,8 +546,9 @@
     <li><a href="products.html">Products</a></li>
     <li><a href="craftsmanship.html">Craftsmanship</a></li>
     <li><a href="gallery.html">Gallery</a></li>
-    <li><a href="about.html">About</a></li>
+    <li><a href="about.html">About Us</a></li>
     <li><a href="contact.html">Contact</a></li>
+    <li><a href="b2b.html">B2B Solutions</a></li>
   </ul>
   <a href="https://wa.me/919742630886" target="_blank" class="nav-cta">📱 WhatsApp Us</a>
   <div class="nav-hamburger" onclick="openMobileNav()"><span></span><span></span><span></span></div>
@@ -559,9 +560,10 @@
   <a href="products.html" onclick="closeMobileNav()">Products</a>
   <a href="craftsmanship.html" onclick="closeMobileNav()">Craftsmanship</a>
   <a href="gallery.html" onclick="closeMobileNav()">Gallery</a>
-  <a href="about.html" onclick="closeMobileNav()">About</a>
+  <a href="about.html" onclick="closeMobileNav()">About Us</a>
   <a href="#services" onclick="closeMobileNav()">Services</a>
   <a href="contact.html" onclick="closeMobileNav()">Contact</a>
+  <a href="b2b.html" onclick="closeMobileNav()">B2B Solutions</a>
 </div>
 
 <!-- About -->
@@ -581,7 +583,7 @@
     </div>
     <div class="about-text reveal reveal-delay-2">
       <div class="section-label" style="color:var(--gold)">Our Story</div>
-      <h2 class="section-title" style="color:#fff">Born in Bengaluru, <strong>Built for Homes</strong></h2>
+      <h2 class="section-title" style="color:var(--charcoal)">Born in Bengaluru, <strong>Built for Homes</strong></h2>
       <div class="divider"></div>
       <p>Weaver's Crafting started with one belief — that beautiful furniture shouldn't cost a fortune. Based in Bandepalya, Bengaluru, we've been crafting premium sofas, beds, dining sets, and custom furniture for homes and offices across Karnataka.</p>
       <p style="margin-top:16px">Every piece that leaves our workshop is a promise of comfort, durability, and craftsmanship that stands the test of time.</p>
@@ -614,6 +616,7 @@
         <li><a href="products.html">Products</a></li>
         <li><a href="craftsmanship.html">Craftsmanship</a></li>
         <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="b2b.html">B2B Solutions</a></li>
       </ul>
     </div>
     <div>
@@ -805,10 +808,12 @@ document.querySelectorAll('a,button,.product-card,.gallery-item').forEach(el=>{
 
 // ── PARTICLES ─────────────────────────────────────────
 const pc = document.getElementById('particles');
+if (pc) {
 for(let i=0;i<8;i++){
   const p=document.createElement('div');p.className='particle';
   p.style.cssText=`left:${10+Math.random()*80}%;top:${10+Math.random()*70}%;animation-delay:${Math.random()*6}s;animation-duration:${4+Math.random()*4}s;width:${3+Math.random()*5}px;height:${3+Math.random()*5}px;`;
   pc.appendChild(p);
+}
 }
 
 // ── MOBILE NAV ─────────────────────────────────────────

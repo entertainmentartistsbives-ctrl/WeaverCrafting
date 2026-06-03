@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weaver's Crafting — Admin Login</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#0a0a0a;color:#fff;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+/* Animated background */
+.bg-glow{position:fixed;inset:0;z-index:0;overflow:hidden}
+.bg-glow::before,.bg-glow::after{content:'';position:absolute;border-radius:50%;filter:blur(120px);opacity:.15;animation:float 8s ease-in-out infinite}
+.bg-glow::before{width:500px;height:500px;background:#c5a059;top:-100px;left:-100px}
+.bg-glow::after{width:400px;height:400px;background:#8B6914;bottom:-80px;right:-80px;animation-delay:4s}
+@keyframes float{0%,100%{transform:translate(0,0)}50%{transform:translate(40px,30px)}}
+
+.login-container{position:relative;z-index:1;width:420px;max-width:92vw}
+.login-card{background:rgba(20,20,20,.85);backdrop-filter:blur(20px);border:1px solid rgba(197,160,89,.2);border-radius:20px;padding:48px 40px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.brand{text-align:center;margin-bottom:36px}
+.brand-icon{width:64px;height:64px;background:linear-gradient(135deg,#c5a059,#8B6914);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 16px;box-shadow:0 8px 30px rgba(197,160,89,.3)}
+.brand h1{font-size:1.4em;font-weight:600;color:#fff;letter-spacing:1px}
+.brand p{color:#666;font-size:.85em;margin-top:6px}
+.form-group{margin-bottom:20px}
+.form-group label{display:flex;align-items:center;gap:8px;font-size:.82em;color:#999;margin-bottom:8px;font-weight:500;text-transform:uppercase;letter-spacing:.5px}
+.form-group label span.icon{font-size:1.1em}
+.form-group input{width:100%;background:#1a1a1a;border:1px solid #2a2a2a;color:#fff;border-radius:12px;padding:14px 16px;font-size:.95em;outline:none;transition:all .3s;font-family:'Inter',sans-serif}
+.form-group input:focus{border-color:#c5a059;box-shadow:0 0 0 3px rgba(197,160,89,.1)}
+.form-group input::placeholder{color:#444}
+.login-btn{width:100%;padding:16px;background:linear-gradient(135deg,#c5a059,#a08030);color:#000;border:none;border-radius:12px;font-size:1em;font-weight:700;cursor:pointer;transition:all .3s;font-family:'Inter',sans-serif;letter-spacing:.5px;margin-top:8px}
+.login-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(197,160,89,.4)}
+.login-btn:active{transform:translateY(0)}
+.error-msg{background:rgba(231,76,60,.1);border:1px solid rgba(231,76,60,.25);color:#e74c3c;padding:12px 16px;border-radius:10px;font-size:.85em;margin-bottom:16px;display:none;text-align:center;animation:shake .4s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.footer-note{text-align:center;margin-top:24px;font-size:.78em;color:#444}
+.footer-note a{color:#c5a059;text-decoration:none}
+/* Show password toggle */
+.pw-wrapper{position:relative}
+.pw-wrapper input{padding-right:44px}
+.pw-toggle{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;color:#555;cursor:pointer;font-size:1.1em;padding:4px}
+.pw-toggle:hover{color:#c5a059}
+</style>
+</head>
+<body>
+<div class="bg-glow"></div>
+<div class="login-container">
+  <div class="login-card">
+    <div class="brand">
+      <div class="brand-icon">🛡️</div>
+      <h1>Admin Panel</h1>
+      <p>Weaver's Crafting — Management Access</p>
+    </div>
+    <div id="errorMsg" class="error-msg"></div>
+    <form id="loginForm" onsubmit="return handleLogin(event)">
+      <div class="form-group">
+        <label><span class="icon">👤</span> Email</label>
+        <input type="email" id="username" placeholder="Enter your email" autocomplete="username" required autofocus>
+      </div>
+      <div class="form-group">
+        <label><span class="icon">🔒</span> Password</label>
+        <div class="pw-wrapper">
+          <input type="password" id="password" placeholder="Enter your password" autocomplete="current-password" required>
+          <button type="button" class="pw-toggle" onclick="togglePw()" title="Show/Hide password">👁️</button>
+        </div>
+      </div>
+      <button type="submit" class="login-btn">🔓 Sign In to Dashboard</button>
+    </form>
+    <div class="footer-note">
+      <a href="index.html">← Back to Website</a>
+    </div>
+  </div>
+</div>
+
+<!-- Supabase SDK -->
+<script src="config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+// Initialize Supabase
+const sb = window.supabase.createClient(WC_CONFIG.SUPABASE_URL, WC_CONFIG.SUPABASE_ANON_KEY);
+
+async function handleLogin(e) {
+  e.preventDefault();
+  const email = document.getElementById('username').value.trim();
+  const pass = document.getElementById('password').value;
+  const errEl = document.getElementById('errorMsg');
+  const btn = document.querySelector('.login-btn');
+  
+  // Show loading state
+  btn.innerHTML = '⏳ Verifying...';
+  btn.disabled = true;
+
+  // Authenticate with Supabase
+  const { data, error } = await sb.auth.signInWithPassword({
+    email: email,
+    password: pass,
+  });
+
+  if (error) {
+    errEl.textContent = '❌ Invalid email or password. Please try again.';
+    errEl.style.display = 'block';
+    document.getElementById('password').value = '';
+    document.getElementById('password').focus();
+    btn.innerHTML = '🔓 Sign In to Dashboard';
+    btn.disabled = false;
+  } else {
+    // Successful login - Supabase securely handles the session
+    window.location.href = 'admin.html';
+  }
+}
+
+function togglePw() {
+  const inp = document.getElementById('password');
+  inp.type = inp.type === 'password' ? 'text' : 'password';
+}
+
+// Check if already logged in via Supabase
+sb.auth.getSession().then(({ data: { session } }) => {
+  if (session) {
+    window.location.href = 'admin.html';
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en-IN" prefix="og: https://ogp.me/ns#">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<!-- ═══════════════════════════════════════════════
+     PRIMARY SEO META TAGS
+════════════════════════════════════════════════ -->
+<title>B2B & Commercial Furniture Solutions | Weaver's Crafting Bengaluru</title>
+<meta name="description" content="Premium custom B2B and commercial furniture solutions for offices, cafes, restaurants, hotels, and interior designers in Bommanahalli, Bengaluru. Get a wholesale quote today.">
+<meta name="author" content="Weaver's Crafting">
+<meta name="theme-color" content="#2a6b7c">
+
+<!-- ═══════════════════════════════════════════════
+     FONTS
+════════════════════════════════════════════════ -->
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f5f0e8;
+    --warm-white: #faf8f4;
+    --charcoal: #1a1714;
+    --gold: #c9a84c;
+    --gold-light: #e8d5a3;
+    --teal: #2a6b7c;
+    --teal-dark: #1d4e5a;
+    --teal-light: #4a9ab0;
+    --muted: #7a6e62;
+    --border: rgba(201,168,76,0.25);
+  }
+
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;overflow-x:hidden}
+  body{background:var(--warm-white);color:var(--charcoal);font-family:'DM Sans',sans-serif;overflow-x:hidden}
+
+  /* ── CURSOR ──────────────────────────────────── */
+  .cursor{position:fixed;width:10px;height:10px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transition:transform .15s ease,opacity .15s;mix-blend-mode:multiply}
+  .cursor-ring{position:fixed;width:36px;height:36px;border:1.5px solid var(--gold);border-radius:50%;pointer-events:none;z-index:9998;transition:transform .3s ease,opacity .3s}
+
+  /* ── NAV ─────────────────────────────────────── */
+  nav{position:fixed;top:0;left:0;width:100%;z-index:1000;padding:20px 60px;display:flex;align-items:center;justify-content:space-between;transition:background .4s,padding .4s,box-shadow .4s}
+  nav.scrolled{background:rgba(250,248,244,.96);backdrop-filter:blur(16px);padding:14px 60px;box-shadow:0 2px 40px rgba(0,0,0,.08)}
+  .nav-logo{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--charcoal);letter-spacing:.04em;text-decoration:none}
+  .nav-logo span{color:var(--gold)}
+  .nav-links{display:flex;gap:36px;list-style:none}
+  .nav-links a{text-decoration:none;font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--charcoal);position:relative;transition:color .3s}
+  .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1.5px;background:var(--gold);transition:width .3s}
+  .nav-links a:hover{color:var(--gold)}
+  .nav-links a:hover::after{width:100%}
+  .nav-cta{background:var(--teal);color:#fff;padding:11px 26px;border-radius:4px;text-decoration:none;font-size:13px;font-weight:500;letter-spacing:.06em;transition:background .3s,transform .2s}
+  .nav-cta:hover{background:var(--teal-dark);transform:translateY(-1px)}
+  .nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+  .nav-hamburger span{width:24px;height:2px;background:var(--charcoal);transition:.3s}
+
+  /* ── FOOTER ──────────────────────────────────── */
+  footer{background:var(--charcoal);padding:72px 60px 32px;color:rgba(255,255,255,.6)}
+  .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;margin-bottom:60px}
+  .footer-brand{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;color:#fff;margin-bottom:16px}
+  .footer-brand span{color:var(--gold)}
+  .footer-tagline{font-size:14px;line-height:1.7}
+  .footer-col h4{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:20px}
+  .footer-links{list-style:none;display:flex;flex-direction:column;gap:12px}
+  .footer-links a{text-decoration:none;color:rgba(255,255,255,.6);font-size:14px;transition:color .3s}
+  .footer-links a:hover{color:var(--gold)}
+  .footer-bottom{border-top:1px solid rgba(255,255,255,.08);padding-top:28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:13px}
+  .footer-bottom a{color:var(--gold);text-decoration:none}
+
+  /* ── RESPONSIVE ──────────────────────────────── */
+  @media(max-width:900px){
+    nav{padding:16px 24px}
+    nav.scrolled{padding:12px 24px}
+    .nav-links,.nav-cta{display:none}
+    .nav-hamburger{display:flex}
+    .footer-grid{grid-template-columns:1fr 1fr}
+    .footer-grid{grid-template-columns:1fr}
+  }
+
+  /* ── MOBILE NAV ──────────────────────────────── */
+  .mobile-nav{position:fixed;inset:0;background:var(--charcoal);z-index:1400;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:32px;transform:translateX(100%);transition:transform .4s cubic-bezier(.4,0,.2,1)}
+  .mobile-nav.open{transform:translateX(0)}
+  .mobile-nav a{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;color:#fff;text-decoration:none;transition:color .3s}
+  .mobile-nav a:hover{color:var(--gold)}
+  .mobile-nav-close{position:absolute;top:28px;right:28px;font-size:28px;color:#fff;cursor:pointer}
+</style>
+<link rel="stylesheet" href="styles/shop.css">
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Nav -->
+<nav id="mainNav">
+  <a href="index.html" class="nav-logo">Weaver's <span>Crafting</span></a>
+  <ul class="nav-links">
+    <li><a href="products.html">Products</a></li>
+    <li><a href="craftsmanship.html">Craftsmanship</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="b2b.html">B2B Solutions</a></li>
+  </ul>
+  <a href="https://wa.me/919742630886" target="_blank" class="nav-cta">📱 WhatsApp Us</a>
+  <div class="nav-hamburger" onclick="openMobileNav()"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- Mobile Nav -->
+<div class="mobile-nav" id="mobileNav">
+  <span class="mobile-nav-close" onclick="closeMobileNav()">✕</span>
+  <a href="products.html" onclick="closeMobileNav()">Products</a>
+  <a href="craftsmanship.html" onclick="closeMobileNav()">Craftsmanship</a>
+  <a href="gallery.html" onclick="closeMobileNav()">Gallery</a>
+  <a href="about.html" onclick="closeMobileNav()">About Us</a>
+  <a href="contact.html" onclick="closeMobileNav()">Contact</a>
+  <a href="b2b.html" onclick="closeMobileNav()">B2B Solutions</a>
+</div>
+
+<!-- B2B Hero Section -->
+<section class="b2b-hero" style="background-image: url('b2b_hero_bg.png');">
+  <div class="b2b-hero__content">
+    <div class="section-label" style="color: var(--gold);">Commercial Partner</div>
+    <h1 class="b2b-hero__title">B2B & Commercial <strong>Furniture Solutions</strong></h1>
+    <p class="b2b-hero__sub">Premium handcrafted furniture tailored for offices, cafes, hotels, and custom projects.</p>
+    <a href="#enquiry-form" class="btn-primary" style="background: var(--gold); color: var(--charcoal); font-weight: 700;">Submit Custom Request</a>
+  </div>
+</section>
+
+<!-- Audience Section: Who Is This For? -->
+<section class="b2b-audiences">
+  <h2 class="b2b-section-title">Who is this <strong>for?</strong></h2>
+  
+  <div class="b2b-grid">
+    <!-- Card 1 -->
+    <div class="b2b-card">
+      <span class="b2b-card__icon">🏢</span>
+      <div>
+        <h3 class="b2b-card__title">Offices & Workspaces</h3>
+        <p class="b2b-card__desc">Ergonomic seating, executive desks, reception counters, collaborative work tables, and breakout lounge furniture built for performance.</p>
+      </div>
+    </div>
+    
+    <!-- Card 2 -->
+    <div class="b2b-card">
+      <span class="b2b-card__icon">☕</span>
+      <div>
+        <h3 class="b2b-card__title">Cafes & Restaurants</h3>
+        <p class="b2b-card__desc">Sturdy solid-wood dining tables, custom-sized booth seating, bar stools, counter units, and outdoor seating with water-resistant finishes.</p>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="b2b-card">
+      <span class="b2b-card__icon">🏨</span>
+      <div>
+        <h3 class="b2b-card__title">Hotels & Lounges</h3>
+        <p class="b2b-card__desc">Luxurious lobby sofa sets, accent chairs, tufted headboards, wall panelling, luggage racks, and side tables that create a lasting guest impression.</p>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="b2b-card">
+      <span class="b2b-card__icon">📐</span>
+      <div>
+        <h3 class="b2b-card__title">Custom Projects</h3>
+        <p class="b2b-card__desc">Tailored contract furniture solutions for interior designers, architects, builders, and contractors looking to execute specific design blueprints.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Custom Request Form -->
+<section class="b2b-form-section" id="enquiry-form">
+  <div class="b2b-form-card">
+    <h2 class="b2b-section-title" style="margin-bottom: 12px;">Submit B2B <strong>Enquiry</strong></h2>
+    <p style="text-align:center; color:var(--text-light); margin-bottom:40px; font-size:14px;">Fill in your commercial requirements below. We will generate a wholesale quote and contact you within 24 hours.</p>
+    
+    <form onsubmit="submitB2BForm(event)">
+      <div class="b2b-form-card__section-title">Company Info</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="b2bCompany">Company Name *</label>
+          <input type="text" id="b2bCompany" required placeholder="e.g. Acme Designs Pvt Ltd">
+        </div>
+        <div class="form-group">
+          <label for="b2bName">Contact Person Name *</label>
+          <input type="text" id="b2bName" required placeholder="e.g. John Doe">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="b2bPhone">Contact Phone *</label>
+          <input type="tel" id="b2bPhone" required placeholder="e.g. +91 98765 43210">
+        </div>
+        <div class="form-group">
+          <label for="b2bEmail">Contact Email *</label>
+          <input type="email" id="b2bEmail" required placeholder="e.g. partner@company.com">
+        </div>
+      </div>
+
+      <div class="b2b-form-card__section-title">Project Requirements</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="b2bProject">Project Type *</label>
+          <select id="b2bProject" required>
+            <option value="" disabled selected>Select project type...</option>
+            <option value="Office / Workspace">Office / Workspace</option>
+            <option value="Cafe / Restaurant">Cafe / Restaurant</option>
+            <option value="Hotel / Lobby">Hotel / Lobby</option>
+            <option value="Custom Residential / Villa">Custom Residential / Villa</option>
+            <option value="Other Commercial Project">Other Commercial Project</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="b2bVolume">Estimated Order Volume *</label>
+          <select id="b2bVolume" required>
+            <option value="" disabled selected>Select volume...</option>
+            <option value="1-5 pieces">1-5 pieces (Small Commercial)</option>
+            <option value="5-20 pieces">5-20 pieces (Medium Commercial)</option>
+            <option value="20-50 pieces">20-50 pieces (Large Scale)</option>
+            <option value="50+ pieces">50+ pieces (Bulk Order)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="b2bRequirements">Specific Details & Requirements *</label>
+        <textarea id="b2bRequirements" rows="5" required placeholder="Describe what you need: design preferences, wood type (e.g. Teak, Sheesham), upholstery type, specific dimensions, or custom notes."></textarea>
+      </div>
+
+      <div style="background: var(--primary-light); padding: 16px; border-radius: 8px; margin-bottom: 24px; font-size: 13.5px; border-left: 4px solid var(--primary); color: var(--primary-dark);">
+        💡 <strong>Design Reference:</strong> You can upload and share drawings, floor plans, or reference image files directly with us on WhatsApp (+91 97426 30886) or Email (craftersofa974263@gmail.com) after submitting this form.
+      </div>
+
+      <button type="submit" class="btn-success" style="width:100%; font-size:16px; padding:16px;">Submit Enquiry via WA & Email</button>
+    </form>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">Weaver's <span>Crafting</span></div>
+      <p class="footer-tagline">Premium handcrafted furniture for homes across Bengaluru. Sofas, beds, dining sets and more — made with love.</p>
+      <div style="margin-top:24px;display:flex;gap:12px">
+        <a href="https://wa.me/919742630886" target="_blank" style="width:40px;height:40px;background:rgba(255,255,255,.08);border-radius:8px;display:flex;align-items:center;justify-content:center;transition:.3s" onmouseover="this.style.background='#25d366'" onmouseout="this.style.background='rgba(255,255,255,.08)'">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="rgba(255,255,255,.7)"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.025.507 3.933 1.395 5.608L0 24l6.562-1.365A11.952 11.952 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.007-1.372l-.36-.214-3.733.776.804-3.62-.235-.374A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div>
+      <h4>Navigation</h4>
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="craftsmanship.html">Craftsmanship</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="b2b.html">B2B Solutions</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Services</h4>
+      <ul class="footer-links">
+        <li><a href="index.html#services">Sofas & Sectionals</a></li>
+        <li><a href="index.html#services">Sofa Cum Beds</a></li>
+        <li><a href="index.html#services">Dining Sets</a></li>
+        <li><a href="index.html#services">Beds & Mattresses</a></li>
+        <li><a href="index.html#services">Repairs</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <ul class="footer-links">
+        <li><a href="tel:+919742630886">+91 97426 30886</a></li>
+        <li><a href="tel:+918881423496">+91 88814 23496</a></li>
+        <li><a href="contact.html">Bandepalya, Bengaluru</a></li>
+        <li><a href="https://wa.me/919742630886" target="_blank">WhatsApp Us</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2024 Weaver's Crafting. All rights reserved.</span>
+    <span>Made by Robo I Vision +91 7020874618 WhatsApp</span>
+  </div>
+</footer>
+
+<script>
+// Submit B2B Form
+function submitB2BForm(e) {
+  e.preventDefault();
+
+  const company = document.getElementById('b2bCompany').value.trim();
+  const name = document.getElementById('b2bName').value.trim();
+  const phone = document.getElementById('b2bPhone').value.trim();
+  const email = document.getElementById('b2bEmail').value.trim();
+  const projectType = document.getElementById('b2bProject').value;
+  const volume = document.getElementById('b2bVolume').value;
+  const requirements = document.getElementById('b2bRequirements').value.trim();
+
+  // Create message text
+  const messageText = `Hi Weaver's Crafting! I'd like to submit a B2B / Commercial Enquiry:\n\n*Company details:*\nCompany Name: ${company}\nContact Name: ${name}\nPhone: ${phone}\nEmail: ${email}\n\n*Project Details:*\nProject Type: ${projectType}\nEstimated Volume: ${volume}\nSpecific Requirements: ${requirements}\n\nNote: I will share design drawings/reference images directly with you.`;
+
+  const encodedMessage = encodeURIComponent(messageText);
+  const whatsappUrl = `https://wa.me/919742630886?text=${encodedMessage}`;
+  const mailtoUrl = `mailto:craftersofa974263@gmail.com?subject=New B2B Furniture Enquiry - ${company}&body=${encodedMessage}`;
+
+  // 1. Open WhatsApp
+  window.open(whatsappUrl, '_blank');
+
+  // 2. Open Mail with 500ms delay
+  setTimeout(() => {
+    window.location.href = mailtoUrl;
+  }, 500);
+
+  // Clear inputs
+  document.getElementById('b2bCompany').value = '';
+  document.getElementById('b2bName').value = '';
+  document.getElementById('b2bPhone').value = '';
+  document.getElementById('b2bEmail').value = '';
+  document.getElementById('b2bProject').selectedIndex = 0;
+  document.getElementById('b2bVolume').selectedIndex = 0;
+  document.getElementById('b2bRequirements').value = '';
+
+  alert("Your B2B enquiry has been sent via WhatsApp and Email. Our commercial team will get back to you shortly!");
+}
+
+// ── NAV EVENTS ─────────────────────────────────────────
+function openMobileNav() {
+  document.getElementById('mobileNav').classList.add('open');
+}
+function closeMobileNav() {
+  document.getElementById('mobileNav').classList.remove('open');
+}
+window.addEventListener('scroll',()=>{
+  document.getElementById('mainNav').classList.toggle('scrolled',window.scrollY>60);
+});
+
+// ── CURSOR ─────────────────────────────────────────────
+const cur = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let cx=0,cy=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{cx=e.clientX;cy=e.clientY;cur.style.left=cx+'px';cur.style.top=cy+'px';});
+(function animRing(){rx+=(cx-rx)*.14;ry+=(cy-ry)*.14;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing);})();
+</script>
+</body>
+</html>

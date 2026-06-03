@@ -546,8 +546,9 @@
     <li><a href="products.html">Products</a></li>
     <li><a href="craftsmanship.html">Craftsmanship</a></li>
     <li><a href="gallery.html">Gallery</a></li>
-    <li><a href="about.html">About</a></li>
+    <li><a href="about.html">About Us</a></li>
     <li><a href="contact.html">Contact</a></li>
+    <li><a href="b2b.html">B2B Solutions</a></li>
   </ul>
   <a href="https://wa.me/919742630886" target="_blank" class="nav-cta">📱 WhatsApp Us</a>
   <div class="nav-hamburger" onclick="openMobileNav()"><span></span><span></span><span></span></div>
@@ -559,9 +560,10 @@
   <a href="products.html" onclick="closeMobileNav()">Products</a>
   <a href="craftsmanship.html" onclick="closeMobileNav()">Craftsmanship</a>
   <a href="gallery.html" onclick="closeMobileNav()">Gallery</a>
-  <a href="about.html" onclick="closeMobileNav()">About</a>
+  <a href="about.html" onclick="closeMobileNav()">About Us</a>
   <a href="#services" onclick="closeMobileNav()">Services</a>
   <a href="contact.html" onclick="closeMobileNav()">Contact</a>
+  <a href="b2b.html" onclick="closeMobileNav()">B2B Solutions</a>
 </div>
 
 <!-- Contact -->
@@ -644,6 +646,7 @@
         <li><a href="products.html">Products</a></li>
         <li><a href="craftsmanship.html">Craftsmanship</a></li>
         <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="b2b.html">B2B Solutions</a></li>
       </ul>
     </div>
     <div>
@@ -835,10 +838,12 @@ document.querySelectorAll('a,button,.product-card,.gallery-item').forEach(el=>{
 
 // ── PARTICLES ─────────────────────────────────────────
 const pc = document.getElementById('particles');
+if (pc) {
 for(let i=0;i<8;i++){
   const p=document.createElement('div');p.className='particle';
   p.style.cssText=`left:${10+Math.random()*80}%;top:${10+Math.random()*70}%;animation-delay:${Math.random()*6}s;animation-duration:${4+Math.random()*4}s;width:${3+Math.random()*5}px;height:${3+Math.random()*5}px;`;
   pc.appendChild(p);
+}
 }
 
 // ── MOBILE NAV ─────────────────────────────────────────
