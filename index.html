@@ -2964,7 +2964,7 @@
         grid.innerHTML += `
     <div class="product-card reveal${hidden ? ' hidden' : ''}${i % 4 === 1 ? ' reveal-delay-1' : i % 4 === 2 ? ' reveal-delay-2' : i % 4 === 3 ? ' reveal-delay-3' : ''}" data-index="${i}">
       <div class="product-img" onclick="window.location.href='product-detail.html?id=${p.id}'">
-        <img src="${realImgUrl}" alt="${p.name || 'Product'}" loading="lazy">
+        <img src="${realImgUrl}" alt="${p.name || 'Product'}" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/600x400/2a6b7c/white?text=' + encodeURIComponent('${p.name || 'Product'}');">
         ${badgeHtml}
         <div class="product-wa-overlay">
           <a href="product-detail.html?id=${p.id}" class="product-view-btn">

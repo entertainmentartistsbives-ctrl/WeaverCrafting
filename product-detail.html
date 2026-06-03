@@ -154,7 +154,7 @@
     <!-- Left Column - Image Gallery -->
     <div class="detail-gallery">
       <div class="detail-gallery__main-wrap">
-        <img src="" alt="" class="detail-gallery__main" id="detailMainImg">
+        <img src="" alt="" class="detail-gallery__main" id="detailMainImg" onerror="this.onerror=null; this.src='https://placehold.co/600x400/2a6b7c/white?text=' + encodeURIComponent(document.getElementById('detailName').innerText);">
       </div>
       <div class="detail-gallery__thumbs" id="detailThumbsContainer">
         <!-- Thumbnails dynamic -->
@@ -807,7 +807,7 @@ function initProductDetailUI() {
     activeProduct.images.forEach((imgUrl, i) => {
       const isActive = i === 0 ? 'active' : '';
       thumbsContainer.innerHTML += `
-        <img src="${imgUrl}" alt="Thumbnail ${i+1}" class="detail-gallery__thumb ${isActive}" onclick="changeMainImage('${imgUrl}', this)">
+        <img src="${imgUrl}" alt="Thumbnail ${i+1}" class="detail-gallery__thumb ${isActive}" onclick="changeMainImage('${imgUrl}', this)" onerror="this.onerror=null; this.src='https://placehold.co/150x150/2a6b7c/white?text=Thumb+${i+1}';">
       `;
     });
   } else {
@@ -921,7 +921,7 @@ function renderCrossSells() {
       <div class="product-card">
         ${badgeHtml}
         <div class="product-card__image-container">
-          <img src="${realImgUrl}" alt="${p.name}" class="product-card__image" loading="lazy">
+          <img src="${realImgUrl}" alt="${p.name}" class="product-card__image" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/600x400/2a6b7c/white?text=' + encodeURIComponent('${p.name}');">
         </div>
         <div class="product-card__body">
           <h3 class="product-card__name">${p.name}</h3>

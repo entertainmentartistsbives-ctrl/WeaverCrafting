@@ -769,7 +769,7 @@ function renderProducts() {
       <div class="product-card">
         ${badgeHtml}
         <div class="product-card__image-container">
-          <img src="${realImgUrl}" alt="${p.name}" class="product-card__image" loading="lazy">
+          <img src="${realImgUrl}" alt="${p.name}" class="product-card__image" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/600x400/2a6b7c/white?text=' + encodeURIComponent('${p.name}');">
         </div>
         <div class="product-card__body">
           <h3 class="product-card__name">${p.name}</h3>
