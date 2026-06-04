@@ -10,20 +10,23 @@
 <script>
 // ── AUTH GUARD ── Redirect if not logged in via Supabase
 const sbClient = window.supabase.createClient(WC_CONFIG.SUPABASE_URL, WC_CONFIG.SUPABASE_ANON_KEY);
-sbClient.auth.getSession().then(({ data: { session } }) => {
-  if (!session) {
-    window.location.href = 'admin-login.html';
-  } else {
-    // Show email in the welcome message
-    const adminNameEl = document.getElementById('adminName');
-    if (adminNameEl) adminNameEl.textContent = session.user.email;
-    document.body.style.display = 'flex';
-  }
+document.addEventListener('DOMContentLoaded', function() {
+  sbClient.auth.getSession().then(({ data: { session } }) => {
+    if (!session) {
+      window.location.href = 'admin-login.html';
+    } else {
+      // Show email in the welcome message
+      const adminNameEl = document.getElementById('adminName');
+      if (adminNameEl) adminNameEl.textContent = session.user.email;
+      document.body.style.display = 'flex';
+      document.body.style.flexDirection = 'row';
+    }
+  });
 });
 </script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',-apple-system,sans-serif;background:#0a0a0a;color:#fff;display:none;min-height:100vh}
+body{font-family:'Inter',-apple-system,sans-serif;background:#0a0a0a;color:#fff;display:none;min-height:100vh;flex-direction:row}
 /* Sidebar */
 .sidebar{width:220px;background:#111;border-right:1px solid #222;padding:32px 0;display:flex;flex-direction:column;flex-shrink:0}
 .sidebar-brand{padding:0 24px 32px;font-size:1.1em;font-weight:700;color:#c5a059;letter-spacing:1px}
