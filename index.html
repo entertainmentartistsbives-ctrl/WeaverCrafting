@@ -2904,27 +2904,25 @@
     }, { threshold: .12 });
 
     // ── DATA ──────────────────────────────────────────────
+    // Fallback local products — shape matches renderProducts() expectations.
+    // Supabase DB products (loaded async) will replace this array if available.
     let products = [
-
-      { tag: 'Space Saver', img: 'i2.jpeg', file: 'i2.jpeg' },
-      { tag: 'New Arrival', img: 'i3.jpeg', file: 'i3.jpeg' },
-      { tag: 'Custom', img: 'i4.jpeg', file: 'i4.jpeg' },
-      { tag: 'Trending', img: 'i5.jpeg', file: 'i5.jpeg' },
-
-      { tag: 'Premium', img: 'i7.jpeg', file: 'i7.jpeg' },
-      { tag: 'Comfort', img: 'i8.jpeg', file: 'i8.jpeg' },
-      { tag: 'Apartment', img: 'i9.jpeg', file: 'i9.jpeg' },
-      { tag: 'Health Pick', img: 'i10.jpeg', file: 'i10.jpeg' },
-
-      { tag: 'Modern', img: 'i12.jpeg', file: 'i12.jpeg' },
-      { tag: 'Functional', img: 'i13.jpeg', file: 'i13.jpeg' },
-      { tag: 'Elegant', img: 'i14.jpeg', file: 'i14.jpeg' },
-      { tag: 'Versatile', img: 'i15.jpeg', file: 'i15.jpeg' },
-
-      { tag: 'Heritage', img: 'i17.jpeg', file: 'i17.jpeg' },
-      { tag: 'Premium', img: 'i18.jpeg', file: 'i18.jpeg' },
-      { tag: 'Space Smart', img: 'i19.jpeg', file: 'i19.jpeg' },
-      { tag: 'Trendy', img: 'i20.jpeg', file: 'i20.jpeg' },
+      { id: 'sofa-001', name: 'Royal L-Shape Sofa',            badge: 'Bestseller', images: ['i2.jpeg'] },
+      { id: 'sofa-002', name: 'Classic 3-Seater Fabric Sofa',  badge: 'New',        images: ['i3.jpeg'] },
+      { id: 'sofa-003', name: 'Sofa Cum Bed (Convertible)',     badge: 'Custom',     images: ['i4.jpeg'] },
+      { id: 'dining-001', name: '6-Seater Solid Wood Dining Set', badge: 'Bestseller', images: ['i5.jpeg'] },
+      { id: 'dining-002', name: '4-Seater Compact Dining Table',  badge: '',           images: ['i7.jpeg'] },
+      { id: 'bed-001', name: 'King Size Upholstered Bed',       badge: 'Bestseller', images: ['i8.jpeg'] },
+      { id: 'bed-002', name: 'Queen Size Bed with Storage',     badge: 'New',        images: ['i9.jpeg'] },
+      { id: 'bed-003', name: 'Single Bed with Custom Headboard',badge: 'Custom',     images: ['i10.jpeg'] },
+      { id: 'commercial-001', name: 'Office Workstation Chair Set', badge: 'Custom',  images: ['i12.jpeg'] },
+      { id: 'commercial-002', name: 'Cafe Wooden Dining Set',    badge: 'New',        images: ['i13.jpeg'] },
+      { id: 'commercial-003', name: 'Hotel Lobby Sofa Set',      badge: 'Bestseller', images: ['i14.jpeg'] },
+      { id: 'commercial-004', name: 'Restaurant Booth Seating',  badge: 'Custom',     images: ['i15.jpeg'] },
+      { id: 'sofa-001', name: 'Royal L-Shape Sofa',             badge: 'Bestseller', images: ['i17.jpeg'] },
+      { id: 'sofa-002', name: 'Classic 3-Seater Fabric Sofa',   badge: 'New',        images: ['i18.jpeg'] },
+      { id: 'sofa-003', name: 'Sofa Cum Bed (Convertible)',      badge: 'Custom',     images: ['i19.jpeg'] },
+      { id: 'dining-001', name: '6-Seater Solid Wood Dining Set', badge: 'Bestseller', images: ['i20.jpeg'] },
     ];
 
     const testimonials = [

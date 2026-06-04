@@ -1,2 +1,3 @@
-# config.js — local secrets (never commit to git)
-config.js
+# No files are excluded — config.js is safe to commit.
+# Supabase anon keys are public by design (protected by RLS policies).
+# See: https://supabase.com/docs/guides/api/api-keys
