@@ -105,7 +105,16 @@ td.actions{display:flex;gap:8px}
 .preview-img{width:80px;height:80px;border-radius:6px;object-fit:cover;border:1px solid #333;display:none}
 /* Loading */
 .loading-row{text-align:center;color:#555;padding:40px}
+/* SEO Panel */
+.seo-card{background:#111;border:1px solid #222;border-radius:10px;margin-bottom:20px;overflow:hidden}
+.seo-card__header{background:#161616;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;border-bottom:1px solid #222}
+.seo-card__header h3{color:#c5a059;font-weight:500;font-size:1em;margin:0}
+.seo-card__body{padding:24px}
+.seo-card__body .form-group textarea.schema-field{min-height:200px;font-family:monospace;font-size:0.82em;line-height:1.5}
+.seo-page-select{width:100%;max-width:400px;background:#1e1e1e;border:1px solid #333;color:#fff;border-radius:6px;padding:12px 14px;font-size:0.95em;margin-bottom:24px}
 </style>
+<script src="js/seo-defaults.js"></script>
+<script src="js/sitemap-builder.js"></script>
 
   <!-- Comprehensive SEO Schema -->
   <script type="application/ld+json">
@@ -173,6 +182,18 @@ td.actions{display:flex;gap:8px}
   <div class="nav-item" onclick="showPanel('images')" title="Upload and manage all website images">
     🖼️ <span>My Images</span>
     <small style="display:block;color:#555;font-size:.75em;margin-top:2px;margin-left:22px">Upload photos for the website</small>
+  </div>
+  <div class="nav-item" onclick="showPanel('customers')" title="View registered customer accounts">
+    👥 <span>Registered Users</span>
+    <small style="display:block;color:#555;font-size:.75em;margin-top:2px;margin-left:22px">All accounts that signed up</small>
+  </div>
+  <div class="nav-item" onclick="showPanel('enquiries')" title="View cart enquiries sent via WhatsApp">
+    🛒 <span>Product Enquiries</span>
+    <small style="display:block;color:#555;font-size:.75em;margin-top:2px;margin-left:22px">Cart checkout & WhatsApp orders</small>
+  </div>
+  <div class="nav-item" onclick="showPanel('seo')" title="Edit page titles, meta tags and sitemap">
+    🔍 <span>SEO & Sitemap</span>
+    <small style="display:block;color:#555;font-size:.75em;margin-top:2px;margin-left:22px">Titles, keywords, schema</small>
   </div>
   <div class="nav-item" onclick="showPanel('help')" title="Learn how to use this admin panel">
     ❓ <span>Help Guide</span>
@@ -260,6 +281,159 @@ td.actions{display:flex;gap:8px}
     <div class="image-grid" id="imageGrid"><div class="loading-row" style="grid-column:1/-1">Loading images…</div></div>
   </div>
 
+  <!-- CUSTOMERS PANEL -->
+  <div id="panel-customers" class="panel">
+    <div class="page-header">
+      <h1>👥 Registered Users</h1>
+      <p>Customers who signed up for an account on your website. Their details are auto-filled when they enquire.</p>
+    </div>
+    <div class="stats">
+      <div class="stat-card"><div class="num" id="countCustomers">—</div><div class="label">👥 Total Registered Users</div></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;gap:12px;margin-bottom:16px;flex-wrap:wrap;align-items:center">
+      <input type="text" id="customerSearch" placeholder="🔍 Search by name, email, phone, or locality…" oninput="filterCustomers()" style="flex:1;min-width:220px;background:#1e1e1e;border:1px solid #333;color:#fff;border-radius:6px;padding:10px 14px;font-size:0.9em;outline:none">
+      <button class="btn btn-gold" onclick="loadCustomers()">↻ Refresh</button>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Locality</th><th>Signup Date</th><th>Last Login</th></tr></thead>
+        <tbody id="customerTableBody"><tr><td colspan="6" class="loading-row">Loading customers…</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ENQUIRIES PANEL -->
+  <div id="panel-enquiries" class="panel">
+    <div class="page-header">
+      <h1>🛒 Product Enquiries</h1>
+      <p>Every time a customer adds products to cart and sends an enquiry via WhatsApp — it appears here with their details and order items.</p>
+    </div>
+    <div class="stats">
+      <div class="stat-card"><div class="num" id="countEnquiries">—</div><div class="label">📋 Total Enquiries</div></div>
+      <div class="stat-card"><div class="num" id="countEnquiriesNew">—</div><div class="label">🆕 New (Unread)</div></div>
+      <div class="stat-card"><div class="num" id="countEnquiriesGuest">—</div><div class="label">👤 Guest Enquiries</div></div>
+      <div class="stat-card"><div class="num" id="countEnquiriesLogged">—</div><div class="label">✅ Logged-in Enquiries</div></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;gap:12px;margin-bottom:16px;flex-wrap:wrap;align-items:center">
+      <input type="text" id="enquirySearch" placeholder="🔍 Search by name, phone, email, product…" oninput="filterEnquiries()" style="flex:1;min-width:220px;background:#1e1e1e;border:1px solid #333;color:#fff;border-radius:6px;padding:10px 14px;font-size:0.9em;outline:none">
+      <select id="enquiryStatusFilter" onchange="filterEnquiries()" style="background:#1e1e1e;border:1px solid #333;color:#fff;border-radius:6px;padding:10px 14px;font-size:0.9em;outline:none">
+        <option value="">All Status</option>
+        <option value="new">New</option>
+        <option value="contacted">Contacted</option>
+        <option value="closed">Closed</option>
+      </select>
+      <button class="btn btn-gold" onclick="loadEnquiries()">↻ Refresh</button>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Date</th><th>Customer</th><th>Phone</th><th>Items</th><th>Type</th><th>Status</th><th>Actions</th></tr></thead>
+        <tbody id="enquiryTableBody"><tr><td colspan="7" class="loading-row">Loading enquiries…</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SEO & SITEMAP PANEL -->
+  <div id="panel-seo" class="panel">
+    <div class="page-header">
+      <h1>🔍 SEO & Sitemap</h1>
+      <p>Edit page titles, meta descriptions, keywords, canonical URLs and JSON-LD schema for every page on your website.</p>
+    </div>
+
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px;align-items:center">
+      <select id="seoPageSelect" class="seo-page-select" onchange="loadSeoForm()"></select>
+      <button class="btn btn-gold" onclick="saveSeo()">💾 Save SEO Settings</button>
+      <button class="btn btn-outline" onclick="resetSeoToDefaults()">↺ Reset to Defaults</button>
+      <button class="btn" style="background:#1a2a3a;border:1px solid #2a4a6a;color:#5dade2" onclick="downloadSitemap()">📄 Download Backup</button>
+      <button class="btn" style="background:#1a2a1a;border:1px solid #2d4a2d;color:#4caf50" onclick="publishSitemap(true)">🔄 Publish Sitemap Now</button>
+    </div>
+    <div id="sitemapLiveStatus" style="background:#161616;border:1px solid #222;border-radius:8px;padding:14px 18px;margin-bottom:24px;font-size:0.88em;color:#888;display:none">
+      <strong style="color:#4caf50">✅ Live sitemap auto-published</strong><br>
+      <span>Google reads from: </span><a id="sitemapLiveUrl" href="#" target="_blank" style="color:#5dade2;word-break:break-all"></a>
+      <br><small style="color:#555;margin-top:6px;display:block">Updates automatically every time you save SEO settings — no manual upload needed.</small>
+    </div>
+
+    <div class="seo-card">
+      <div class="seo-card__header"><h3>📝 SEO Settings — <span id="seoPageLabel">Home</span></h3></div>
+      <div class="seo-card__body">
+        <div class="form-grid">
+          <div class="form-group full">
+            <label>Page Title (Meta Title) *</label>
+            <input id="seoTitle" placeholder="e.g. Weaver's Crafting | Best Sofa Shop in Bengaluru">
+          </div>
+          <div class="form-group full">
+            <label>Meta Keywords</label>
+            <input id="seoKeywords" placeholder="comma, separated, keywords">
+          </div>
+          <div class="form-group full">
+            <label>Meta Description *</label>
+            <textarea id="seoDescription" rows="4" placeholder="Short description for Google search results (150–160 chars recommended)"></textarea>
+          </div>
+          <div class="form-group full">
+            <label>Canonical URL</label>
+            <input id="seoCanonical" placeholder="https://weaverscrafting.in/products.html">
+          </div>
+          <div class="form-group">
+            <label>OG / Social Title</label>
+            <input id="seoOgTitle" placeholder="Title for WhatsApp & Facebook previews">
+          </div>
+          <div class="form-group">
+            <label>OG Image URL</label>
+            <input id="seoOgImage" placeholder="https://weaverscrafting.in/og-image.jpg">
+          </div>
+          <div class="form-group full">
+            <label>OG / Social Description</label>
+            <textarea id="seoOgDescription" rows="2" placeholder="Description for social media previews"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Robots</label>
+            <select id="seoRobots">
+              <option value="index, follow">index, follow (show in Google)</option>
+              <option value="noindex, nofollow">noindex, nofollow (hide from Google)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Include in Sitemap?</label>
+            <select id="seoInSitemap">
+              <option value="true">Yes</option>
+              <option value="false">No</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Sitemap Priority (0.0 – 1.0)</label>
+            <input id="seoPriority" placeholder="0.8" type="number" min="0" max="1" step="0.1">
+          </div>
+          <div class="form-group">
+            <label>Change Frequency</label>
+            <select id="seoChangefreq">
+              <option value="always">always</option>
+              <option value="hourly">hourly</option>
+              <option value="daily">daily</option>
+              <option value="weekly">weekly</option>
+              <option value="monthly">monthly</option>
+              <option value="yearly">yearly</option>
+              <option value="never">never</option>
+            </select>
+          </div>
+          <div class="form-group full">
+            <label>Schema (JSON-LD) <small style="color:#555;font-weight:400">— paste JSON or full &lt;script&gt; tag</small></label>
+            <textarea id="seoSchema" class="schema-field" rows="10" placeholder='{"@context":"https://schema.org","@type":"LocalBusiness",...}'></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-header" style="margin-top:32px">
+      <h1 style="font-size:1.2em">🗺️ Sitemap Overview</h1>
+      <p>All pages and their canonical URLs. Click "Download sitemap.xml" to upload to your website root.</p>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Page</th><th>File</th><th>Canonical URL</th><th>In Sitemap</th><th>Priority</th></tr></thead>
+        <tbody id="sitemapTableBody"><tr><td colspan="5" class="loading-row">Loading…</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
   <!-- HELP GUIDE PANEL -->
   <div id="panel-help" class="panel">
     <div class="page-header">
@@ -305,6 +479,32 @@ td.actions{display:flex;gap:8px}
           <li>Click <strong>"Select File(s)"</strong> and choose your photos</li>
           <li>Click <strong style="color:#c5a059">Upload</strong> — done!</li>
         </ol>
+      </div>
+      <div class="stat-card" style="border-left:3px solid #3498db">
+        <h3 style="color:#3498db;font-size:1.1em;margin-bottom:10px">🔍 How to Edit SEO & Sitemap</h3>
+        <ol style="color:#aaa;font-size:.9em;line-height:1.8;padding-left:20px">
+          <li>Go to <strong style="color:#fff">"SEO & Sitemap"</strong> in the left menu</li>
+          <li>Select the page you want to edit from the dropdown</li>
+          <li>Update <strong>Page Title</strong>, <strong>Meta Description</strong>, <strong>Keywords</strong>, and <strong>Canonical URL</strong></li>
+          <li>Paste JSON-LD schema in the Schema field (optional)</li>
+          <li>Click <strong style="color:#c5a059">Save SEO Settings</strong> — changes go live immediately</li>
+          <li>Sitemap <strong>auto-publishes</strong> when you save — no manual upload needed</li>
+          <li>Run storage setup SQL in <code style="color:#c5a059">complete-setup.sql</code> once if publish fails</li>
+        </ol>
+      </div>
+      <div class="stat-card" style="border-left:3px solid #e67e22">
+        <h3 style="color:#e67e22;font-size:1.1em;margin-bottom:10px">📧 Fix "Email Rate Limit" on Customer Signup</h3>
+        <p style="color:#aaa;font-size:.9em;line-height:1.8">
+          If customers see <strong style="color:#e67e22">"email rate limit exceeded"</strong> when creating an account, do this <strong style="color:#fff">once</strong> in your <a href="https://supabase.com/dashboard" target="_blank" style="color:#c5a059;text-decoration:none">Supabase Dashboard</a>:<br>
+          1. Go to <strong>Authentication</strong> → <strong>Providers</strong> → <strong>Email</strong><br>
+          2. Turn <strong>OFF</strong> the <strong>"Confirm email"</strong> toggle<br>
+          3. Click <strong>Save</strong><br>
+          <br>
+          Customers can then sign up and log in instantly — no verification email needed.<br>
+          <br>
+          To manually confirm a stuck user, run in SQL Editor (change the email):<br>
+          <code style="color:#c5a059;font-size:0.85em">UPDATE auth.users SET email_confirmed_at = now() WHERE email = 'customer@email.com';</code>
+        </p>
       </div>
       <div class="stat-card" style="border-left:3px solid #9b59b6">
         <h3 style="color:#9b59b6;font-size:1.1em;margin-bottom:10px">🔑 Login Credentials</h3>
@@ -437,6 +637,318 @@ function showPanel(name) {
   document.getElementById('panel-' + name).classList.add('active');
   if (event && event.currentTarget) event.currentTarget.classList.add('active');
   if (name === 'images') loadImages();
+  if (name === 'customers') loadCustomers();
+  if (name === 'enquiries') loadEnquiries();
+  if (name === 'seo') initSeoPanel();
+}
+
+// ── SEO & SITEMAP MANAGEMENT ──────────────────────────
+let seoDbMap = {};
+const SEO_PAGES = window.WC_SEO_PAGES || [];
+const SEO_DEFAULTS = window.WC_SEO_DEFAULTS || {};
+
+async function loadAllSeoFromDb() {
+  seoDbMap = {};
+  const { data } = await sb.from('images').select('id, category, image_url').like('category', 'seo_%');
+  if (data) data.forEach(row => {
+    const slug = row.category.replace('seo_', '');
+    try { seoDbMap[slug] = { dbId: row.id, ...JSON.parse(row.image_url) }; } catch(e) {}
+  });
+}
+
+function getSeoForPage(slug) {
+  return { ...(SEO_DEFAULTS[slug] || {}), ...(seoDbMap[slug] || {}) };
+}
+
+function fillSeoForm(seo, label) {
+  document.getElementById('seoPageLabel').textContent = label || 'Page';
+  document.getElementById('seoTitle').value = seo.title || '';
+  document.getElementById('seoKeywords').value = seo.keywords || '';
+  document.getElementById('seoDescription').value = seo.description || '';
+  document.getElementById('seoCanonical').value = seo.canonical || '';
+  document.getElementById('seoOgTitle').value = seo.og_title || '';
+  document.getElementById('seoOgDescription').value = seo.og_description || '';
+  document.getElementById('seoOgImage').value = seo.og_image || '';
+  document.getElementById('seoRobots').value = seo.robots || 'index, follow';
+  document.getElementById('seoInSitemap').value = seo.in_sitemap === false ? 'false' : 'true';
+  document.getElementById('seoPriority').value = seo.priority || '0.8';
+  document.getElementById('seoChangefreq').value = seo.changefreq || 'monthly';
+  document.getElementById('seoSchema').value = seo.schema || '';
+}
+
+function readSeoForm() {
+  return {
+    title: document.getElementById('seoTitle').value.trim(),
+    keywords: document.getElementById('seoKeywords').value.trim(),
+    description: document.getElementById('seoDescription').value.trim(),
+    canonical: document.getElementById('seoCanonical').value.trim(),
+    og_title: document.getElementById('seoOgTitle').value.trim(),
+    og_description: document.getElementById('seoOgDescription').value.trim(),
+    og_image: document.getElementById('seoOgImage').value.trim(),
+    robots: document.getElementById('seoRobots').value,
+    in_sitemap: document.getElementById('seoInSitemap').value === 'true',
+    priority: document.getElementById('seoPriority').value || '0.8',
+    changefreq: document.getElementById('seoChangefreq').value || 'monthly',
+    schema: document.getElementById('seoSchema').value.trim()
+  };
+}
+
+async function loadSeoForm() {
+  await loadAllSeoFromDb();
+  const slug = document.getElementById('seoPageSelect').value;
+  const pageInfo = SEO_PAGES.find(p => p.slug === slug) || { label: slug };
+  fillSeoForm(getSeoForPage(slug), pageInfo.label);
+  renderSitemapTable();
+}
+
+async function saveSeo() {
+  const slug = document.getElementById('seoPageSelect').value;
+  const payload = readSeoForm();
+  if (!payload.title || !payload.description) {
+    showAlert('Page Title and Meta Description are required.', 'error');
+    return;
+  }
+  const category = 'seo_' + slug;
+  const existing = seoDbMap[slug];
+  let error;
+  if (existing && existing.dbId) {
+    ({ error } = await sb.from('images').update({ image_url: JSON.stringify(payload) }).eq('id', existing.dbId));
+  } else {
+    ({ error } = await sb.from('images').insert([{ category, image_url: JSON.stringify(payload) }]));
+  }
+  if (error) { showAlert('Error saving SEO: ' + error.message, 'error'); return; }
+  await loadSeoForm();
+  const published = await publishSitemap(false);
+  if (published) {
+    showAlert('✅ SEO saved & sitemap auto-published! Google will see changes within minutes.');
+  } else {
+    showAlert('✅ SEO saved! Sitemap publish failed — click "Publish Sitemap Now" or run storage setup SQL.', 'error');
+  }
+}
+
+function buildSitemapXml() {
+  return WC_buildSitemapXml(SEO_PAGES, getSeoForPage);
+}
+
+async function publishSitemap(showErrors) {
+  await loadAllSeoFromDb();
+  const xml = buildSitemapXml();
+  const blob = new Blob([xml], { type: 'application/xml' });
+
+  // Backup copy in images table (always works)
+  const { data: existing } = await sb.from('images').select('id').eq('category', 'sitemap_xml').maybeSingle();
+  if (existing?.id) {
+    await sb.from('images').update({ image_url: xml }).eq('id', existing.id);
+  } else {
+    await sb.from('images').insert([{ category: 'sitemap_xml', image_url: xml }]);
+  }
+
+  // Live public URL via Supabase Storage
+  const { error } = await sb.storage.from('site').upload('sitemap.xml', blob, {
+    upsert: true,
+    contentType: 'application/xml',
+    cacheControl: '300'
+  });
+
+  const liveUrl = WC_CONFIG.SITEMAP_STORAGE_URL;
+  const statusEl = document.getElementById('sitemapLiveStatus');
+  const urlEl = document.getElementById('sitemapLiveUrl');
+
+  if (!error) {
+    statusEl.style.display = 'block';
+    urlEl.href = liveUrl + '?t=' + Date.now();
+    urlEl.textContent = liveUrl;
+    return true;
+  }
+
+  if (showErrors) {
+    showAlert('Storage upload failed: ' + error.message + '. Run the storage section in supabase/complete-setup.sql first.', 'error');
+  }
+  statusEl.style.display = 'block';
+  urlEl.href = WC_CONFIG.SITEMAP_FUNCTION_URL;
+  urlEl.textContent = WC_CONFIG.SITEMAP_FUNCTION_URL + ' (deploy edge function as fallback)';
+  return false;
+}
+
+function resetSeoToDefaults() {
+  const slug = document.getElementById('seoPageSelect').value;
+  const pageInfo = SEO_PAGES.find(p => p.slug === slug);
+  if (!confirm('Reset "' + (pageInfo?.label || slug) + '" to built-in default SEO values? (Does not delete saved data until you click Save)')) return;
+  fillSeoForm(SEO_DEFAULTS[slug] || {}, pageInfo?.label);
+}
+
+function renderSitemapTable() {
+  const tbody = document.getElementById('sitemapTableBody');
+  tbody.innerHTML = SEO_PAGES.map(p => {
+    const seo = getSeoForPage(p.slug);
+    const inMap = seo.in_sitemap !== false ? '✅ Yes' : '❌ No';
+    return `<tr>
+      <td><strong>${p.label}</strong></td>
+      <td style="color:#888">${p.file}</td>
+      <td style="font-size:0.82em;color:#5dade2">${seo.canonical || '—'}</td>
+      <td>${inMap}</td>
+      <td>${seo.priority || '—'}</td>
+    </tr>`;
+  }).join('');
+}
+
+async function downloadSitemap() {
+  await loadAllSeoFromDb();
+  const xml = buildSitemapXml();
+  const blob = new Blob([xml], { type: 'application/xml' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'sitemap.xml';
+  a.click();
+  showAlert('✅ Backup sitemap.xml downloaded.');
+}
+
+async function initSeoPanel() {
+  const sel = document.getElementById('seoPageSelect');
+  if (!sel.options.length) {
+    sel.innerHTML = SEO_PAGES.map(p => `<option value="${p.slug}">${p.label} (${p.file})</option>`).join('');
+  }
+  await loadSeoForm();
+  await publishSitemap(false);
+}
+
+// ── CUSTOMER MANAGEMENT ───────────────────────────────
+let allCustomers = [];
+
+async function loadCustomers() {
+  const tbody = document.getElementById('customerTableBody');
+  tbody.innerHTML = '<tr><td colspan="6" class="loading-row">Loading customers…</td></tr>';
+  const { data, error } = await sb.from('customers').select('*').order('created_at', { ascending: false });
+  if (error) {
+    tbody.innerHTML = `<tr><td colspan="6" class="loading-row" style="color:#e74c3c">Error: ${error.message}</td></tr>`;
+    showAlert('Error loading customers: ' + error.message, 'error');
+    return;
+  }
+  allCustomers = data || [];
+  document.getElementById('countCustomers').textContent = allCustomers.length;
+  renderCustomerTable(allCustomers);
+}
+
+function formatDate(iso) {
+  if (!iso) return '—';
+  return new Date(iso).toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+}
+
+function renderCustomerTable(customers) {
+  const tbody = document.getElementById('customerTableBody');
+  if (customers.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="6" class="loading-row">No registered customers yet.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = customers.map(c => `
+    <tr>
+      <td><strong>${c.full_name}</strong></td>
+      <td>${c.email}</td>
+      <td>${c.phone}</td>
+      <td>${c.locality || '—'}</td>
+      <td>${formatDate(c.created_at)}</td>
+      <td>${formatDate(c.last_login)}</td>
+    </tr>
+  `).join('');
+}
+
+function filterCustomers() {
+  const q = document.getElementById('customerSearch').value.trim().toLowerCase();
+  if (!q) { renderCustomerTable(allCustomers); return; }
+  const filtered = allCustomers.filter(c =>
+    (c.full_name || '').toLowerCase().includes(q) ||
+    (c.email || '').toLowerCase().includes(q) ||
+    (c.phone || '').toLowerCase().includes(q) ||
+    (c.locality || '').toLowerCase().includes(q)
+  );
+  renderCustomerTable(filtered);
+}
+
+// ── ENQUIRY MANAGEMENT ────────────────────────────────
+let allEnquiries = [];
+
+async function loadEnquiries() {
+  const tbody = document.getElementById('enquiryTableBody');
+  tbody.innerHTML = '<tr><td colspan="7" class="loading-row">Loading enquiries…</td></tr>';
+  const { data, error } = await sb.from('enquiries').select('*').order('created_at', { ascending: false });
+  if (error) {
+    tbody.innerHTML = `<tr><td colspan="7" class="loading-row" style="color:#e74c3c">Error: ${error.message}</td></tr>`;
+    showAlert('Error loading enquiries: ' + error.message, 'error');
+    return;
+  }
+  allEnquiries = data || [];
+  document.getElementById('countEnquiries').textContent = allEnquiries.length;
+  document.getElementById('countEnquiriesNew').textContent = allEnquiries.filter(e => e.status === 'new').length;
+  document.getElementById('countEnquiriesGuest').textContent = allEnquiries.filter(e => e.is_guest).length;
+  document.getElementById('countEnquiriesLogged').textContent = allEnquiries.filter(e => !e.is_guest).length;
+  filterEnquiries();
+}
+
+function formatCartSummary(items) {
+  if (!items || !items.length) return '—';
+  const names = items.map(i => i.name).slice(0, 2).join(', ');
+  const extra = items.length > 2 ? ` +${items.length - 2} more` : '';
+  return names + extra;
+}
+
+function renderEnquiryTable(enquiries) {
+  const tbody = document.getElementById('enquiryTableBody');
+  if (enquiries.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="7" class="loading-row">No product enquiries yet.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = enquiries.map(e => {
+    const items = Array.isArray(e.cart_items) ? e.cart_items : [];
+    const waPhone = (e.customer_phone || '').replace(/\D/g, '');
+    const statusColor = e.status === 'new' ? '#3498db' : e.status === 'contacted' ? '#f39c12' : '#27ae60';
+    return `
+    <tr>
+      <td style="white-space:nowrap;font-size:0.82em">${formatDate(e.created_at)}</td>
+      <td><strong>${e.customer_name}</strong><br><span style="color:#555;font-size:0.8em">${e.customer_email || '—'}</span><br><span style="color:#555;font-size:0.8em">📍 ${e.customer_locality || '—'}</span></td>
+      <td>${e.customer_phone}</td>
+      <td title="${items.map(i => i.name).join(', ')}">${formatCartSummary(items)}<br><span style="color:#555;font-size:0.8em">${e.total_items} item(s)</span></td>
+      <td>${e.is_guest ? '<span class="badge" style="background:rgba(149,165,166,.2);color:#95a5a6">Guest</span>' : '<span class="badge" style="background:rgba(46,204,113,.2);color:#2ecc71">Logged In</span>'}</td>
+      <td><span class="badge" style="background:rgba(52,152,219,.15);color:${statusColor}">${e.status || 'new'}</span></td>
+      <td class="actions" style="flex-direction:column;align-items:flex-start">
+        <button class="btn btn-edit btn-sm" onclick="viewEnquiry('${e.id}')">View</button>
+        <a href="https://wa.me/91${waPhone}" target="_blank" class="btn btn-sm" style="background:#1a3a1a;color:#25d366;text-decoration:none;display:inline-block;margin-top:4px">WhatsApp</a>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+function filterEnquiries() {
+  const q = (document.getElementById('enquirySearch')?.value || '').trim().toLowerCase();
+  const status = document.getElementById('enquiryStatusFilter')?.value || '';
+  let filtered = allEnquiries;
+  if (status) filtered = filtered.filter(e => e.status === status);
+  if (q) {
+    filtered = filtered.filter(e => {
+      const items = Array.isArray(e.cart_items) ? e.cart_items : [];
+      const itemText = items.map(i => i.name).join(' ').toLowerCase();
+      return (e.customer_name || '').toLowerCase().includes(q) ||
+        (e.customer_phone || '').toLowerCase().includes(q) ||
+        (e.customer_email || '').toLowerCase().includes(q) ||
+        itemText.includes(q);
+    });
+  }
+  renderEnquiryTable(filtered);
+}
+
+function viewEnquiry(id) {
+  const e = allEnquiries.find(x => x.id === id);
+  if (!e) return;
+  const items = Array.isArray(e.cart_items) ? e.cart_items : [];
+  let itemList = items.map((item, i) =>
+    `${i + 1}. ${item.name}\n   Size: ${item.selectedSize} | Color: ${item.selectedColor}\n   Material: ${item.selectedMaterial} | Wood: ${item.selectedWoodType}\n   Qty: ${item.quantity} | Price: ${item.price}${item.customDimensions ? '\n   Custom: ' + item.customDimensions : ''}`
+  ).join('\n\n');
+  alert(`ENQUIRY DETAILS\n\nCustomer: ${e.customer_name}\nPhone: ${e.customer_phone}\nEmail: ${e.customer_email || '—'}\nLocality: ${e.customer_locality || '—'}\nNotes: ${e.notes || '—'}\nType: ${e.is_guest ? 'Guest' : 'Logged-in User'}\n\nPRODUCTS:\n${itemList || 'No items'}`);
+  if (e.status === 'new') updateEnquiryStatus(id, 'contacted');
+}
+
+async function updateEnquiryStatus(id, status) {
+  const { error } = await sb.from('enquiries').update({ status }).eq('id', id);
+  if (!error) loadEnquiries();
 }
 
 // ── LOGOUT ────────────────────────────────────────────

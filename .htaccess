@@ -1,0 +1,5 @@
+# Proxy sitemap.xml to auto-published Supabase Storage copy
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule ^sitemap\.xml$ https://owgqxbgjmoqlhzztvety.supabase.co/storage/v1/object/public/site/sitemap.xml [P,L]
+</IfModule>

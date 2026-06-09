@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+# Auto-updated by admin panel (also works at weaverscrafting.in/sitemap.xml via hosting rewrite)
+Sitemap: https://owgqxbgjmoqlhzztvety.supabase.co/storage/v1/object/public/site/sitemap.xml
+Sitemap: https://weaverscrafting.in/sitemap.xml

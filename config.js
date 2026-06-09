@@ -23,3 +23,5 @@ const WC_CONFIG = {
 // Derived helpers (do not edit)
 WC_CONFIG.CLOUDINARY_URL = `https://api.cloudinary.com/v1_1/${WC_CONFIG.CLOUDINARY_CLOUD_NAME}/image/upload`;
 WC_CONFIG.WHATSAPP_URL = `https://wa.me/${WC_CONFIG.WHATSAPP_NUMBER}`;
+WC_CONFIG.SITEMAP_STORAGE_URL = `${WC_CONFIG.SUPABASE_URL}/storage/v1/object/public/site/sitemap.xml`;
+WC_CONFIG.SITEMAP_FUNCTION_URL = `${WC_CONFIG.SUPABASE_URL}/functions/v1/sitemap`;

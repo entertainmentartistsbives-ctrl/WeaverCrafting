@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Account — Weaver's Crafting | Login & Signup</title>
+<meta name="description" content="Sign in or create your Weaver's Crafting account to save your details and place furniture enquiries faster across Bengaluru.">
+<meta name="robots" content="noindex, nofollow">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #f5f0e8;
+  --warm-white: #faf8f4;
+  --charcoal: #1a1714;
+  --gold: #c9a84c;
+  --gold-light: #e8d5a3;
+  --teal: #2a6b7c;
+  --teal-dark: #1d4e5a;
+  --muted: #7a6e62;
+  --border: rgba(201,168,76,0.25);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{background:var(--warm-white);color:var(--charcoal);font-family:'DM Sans',sans-serif;overflow-x:hidden;min-height:100vh;display:flex;flex-direction:column}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;width:100%;z-index:1000;padding:20px 60px;display:flex;align-items:center;justify-content:space-between;background:rgba(250,248,244,.96);backdrop-filter:blur(16px);box-shadow:0 2px 40px rgba(0,0,0,.08)}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--charcoal);letter-spacing:.04em;text-decoration:none}
+.nav-logo span{color:var(--gold)}
+.nav-links{display:flex;gap:36px;list-style:none}
+.nav-links a{text-decoration:none;font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--charcoal);position:relative;transition:color .3s}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1.5px;background:var(--gold);transition:width .3s}
+.nav-links a:hover{color:var(--gold)}
+.nav-links a:hover::after{width:100%}
+.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.nav-hamburger span{width:24px;height:2px;background:var(--charcoal);transition:.3s}
+
+/* ── MAIN CONTENT ── */
+.auth-page{flex:1;display:flex;align-items:center;justify-content:center;padding:120px 24px 60px}
+.auth-container{width:480px;max-width:100%}
+.auth-card{background:#fff;border:1px solid rgba(201,168,76,0.2);border-radius:20px;padding:48px 40px;box-shadow:0 20px 60px rgba(0,0,0,.06)}
+.auth-brand{text-align:center;margin-bottom:32px}
+.auth-brand-icon{width:64px;height:64px;background:linear-gradient(135deg,var(--teal),var(--teal-dark));border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 16px;box-shadow:0 8px 30px rgba(42,107,124,.2)}
+.auth-brand h1{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;color:var(--charcoal)}
+.auth-brand p{color:var(--muted);font-size:14px;margin-top:6px}
+
+/* ── TABS ── */
+.auth-tabs{display:flex;gap:0;margin-bottom:28px;border-radius:10px;background:#f5f0e8;overflow:hidden}
+.auth-tab{flex:1;padding:12px;text-align:center;font-size:14px;font-weight:600;letter-spacing:.04em;cursor:pointer;transition:all .3s;color:var(--muted);border:none;background:transparent}
+.auth-tab.active{background:var(--teal);color:#fff;box-shadow:0 4px 12px rgba(42,107,124,.3)}
+
+/* ── FORMS ── */
+.auth-form{display:none}
+.auth-form.active{display:block}
+.form-group{margin-bottom:18px}
+.form-group label{display:block;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.form-group input{width:100%;background:#faf8f4;border:1.5px solid #e0dcd5;color:var(--charcoal);border-radius:10px;padding:14px 16px;font-size:14px;outline:none;transition:all .3s;font-family:inherit}
+.form-group input:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(42,107,124,.1);background:#fff}
+.form-group input::placeholder{color:#b5ae9e}
+.submit-btn{width:100%;padding:16px;background:var(--teal);color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;transition:all .3s;font-family:inherit;letter-spacing:.04em;margin-top:8px}
+.submit-btn:hover{background:var(--teal-dark);transform:translateY(-2px);box-shadow:0 8px 30px rgba(42,107,124,.3)}
+.submit-btn:active{transform:translateY(0)}
+.submit-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+
+/* ── ALERT ── */
+.auth-alert{padding:12px 16px;border-radius:10px;font-size:13px;margin-bottom:16px;display:none;text-align:center}
+.auth-alert.error{display:block;background:rgba(231,76,60,.08);border:1px solid rgba(231,76,60,.2);color:#c0392b}
+.auth-alert.success{display:block;background:rgba(46,204,113,.08);border:1px solid rgba(46,204,113,.2);color:#27ae60}
+.auth-alert.info{display:block;background:rgba(42,107,124,.08);border:1px solid rgba(42,107,124,.2);color:var(--teal-dark)}
+
+.resend-box{margin-top:14px;padding:14px;background:#faf8f4;border-radius:10px;text-align:center;display:none}
+.resend-box.visible{display:block}
+.resend-box p{font-size:13px;color:var(--muted);margin-bottom:10px;line-height:1.5}
+.resend-btn{background:transparent;border:1.5px solid var(--teal);color:var(--teal);padding:10px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:.3s}
+.resend-btn:hover{background:var(--teal);color:#fff}
+.resend-btn:disabled{opacity:.5;cursor:not-allowed}
+
+/* ── LOGGED IN STATE ── */
+.profile-card{background:#fff;border:1px solid rgba(201,168,76,0.2);border-radius:20px;padding:40px;box-shadow:0 20px 60px rgba(0,0,0,.06);text-align:center}
+.profile-avatar{width:80px;height:80px;background:linear-gradient(135deg,var(--teal),var(--gold));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 20px;color:#fff;font-weight:700;font-family:'Cormorant Garamond',serif}
+.profile-name{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;margin-bottom:4px}
+.profile-email{color:var(--muted);font-size:14px;margin-bottom:24px}
+.profile-info{text-align:left;background:#faf8f4;border-radius:12px;padding:20px;margin-bottom:24px}
+.profile-info-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #eee;font-size:14px}
+.profile-info-row:last-child{border-bottom:none}
+.profile-info-row .label{color:var(--muted);font-weight:500}
+.profile-info-row .value{color:var(--charcoal);font-weight:600}
+.profile-actions{display:flex;gap:12px}
+.btn-outline-profile{flex:1;padding:12px;background:transparent;border:1.5px solid var(--teal);color:var(--teal);border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;transition:.3s;font-family:inherit}
+.btn-outline-profile:hover{background:var(--teal);color:#fff}
+.btn-danger-profile{flex:1;padding:12px;background:transparent;border:1.5px solid #e74c3c;color:#e74c3c;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;transition:.3s;font-family:inherit}
+.btn-danger-profile:hover{background:#e74c3c;color:#fff}
+
+/* ── FOOTER ── */
+footer{background:var(--charcoal);padding:32px 60px;color:rgba(255,255,255,.6);text-align:center;font-size:13px;margin-top:auto}
+footer a{color:var(--gold);text-decoration:none}
+
+@media(max-width:900px){
+  nav{padding:16px 24px}
+  .nav-links{display:none}
+  .nav-hamburger{display:flex}
+  .auth-card,.profile-card{padding:32px 24px}
+  footer{padding:24px}
+}
+
+/* ── MOBILE NAV ── */
+.mobile-nav{position:fixed;inset:0;background:var(--charcoal);z-index:1400;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:32px;transform:translateX(100%);transition:transform .4s cubic-bezier(.4,0,.2,1)}
+.mobile-nav.open{transform:translateX(0)}
+.mobile-nav a{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;color:#fff;text-decoration:none;transition:color .3s}
+.mobile-nav a:hover{color:var(--gold)}
+.mobile-nav-close{position:absolute;top:28px;right:28px;font-size:28px;color:#fff;cursor:pointer}
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav>
+  <a href="index.html" class="nav-logo">Weaver's <span>Crafting</span></a>
+  <ul class="nav-links">
+    <li><a href="products.html">Products</a></li>
+    <li><a href="craftsmanship.html">Craftsmanship</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="b2b.html">B2B Solutions</a></li>
+  </ul>
+  <a href="customer-login.html" class="nav-cta" id="navAccountBtn" style="background:var(--gold);color:var(--charcoal);padding:11px 26px;border-radius:4px;text-decoration:none;font-size:13px;font-weight:500;margin-right:12px">👤 My Account</a>
+  <div class="nav-hamburger" onclick="openMobileNav()"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- Mobile Nav -->
+<div class="mobile-nav" id="mobileNav">
+  <span class="mobile-nav-close" onclick="closeMobileNav()">✕</span>
+  <a href="products.html">Products</a>
+  <a href="craftsmanship.html">Craftsmanship</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="about.html">About Us</a>
+  <a href="contact.html">Contact</a>
+  <a href="b2b.html">B2B Solutions</a>
+  <a href="customer-login.html">👤 My Account</a>
+</div>
+
+<main class="auth-page">
+  <div class="auth-container">
+
+    <!-- LOGIN / SIGNUP VIEW (shown when not logged in) -->
+    <div id="authView">
+      <div class="auth-card">
+        <div class="auth-brand">
+          <div class="auth-brand-icon">🛋️</div>
+          <h1>My Account</h1>
+          <p>Sign in to save your details & enquire faster</p>
+        </div>
+
+        <div id="authAlert" class="auth-alert"></div>
+
+        <!-- Tabs -->
+        <div class="auth-tabs">
+          <button class="auth-tab active" onclick="switchTab('login')">Sign In</button>
+          <button class="auth-tab" onclick="switchTab('signup')">Create Account</button>
+        </div>
+
+        <!-- Login Form -->
+        <form id="loginForm" class="auth-form active" onsubmit="handleLogin(event)">
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" id="loginEmail" placeholder="you@example.com" required autofocus>
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="loginPassword" placeholder="Your password" required>
+          </div>
+          <button type="submit" class="submit-btn" id="loginBtn">🔓 Sign In</button>
+          <div id="resendBox" class="resend-box">
+            <p>📧 Verification email not received?<br>Check your spam folder, then click below.</p>
+            <button type="button" class="resend-btn" id="resendBtn" onclick="resendConfirmation()">↻ Resend Verification Email</button>
+          </div>
+        </form>
+
+        <!-- Signup Form -->
+        <form id="signupForm" class="auth-form" onsubmit="handleSignup(event)">
+          <div class="form-group">
+            <label>Full Name *</label>
+            <input type="text" id="signupName" placeholder="e.g. Rahul Sharma" required>
+          </div>
+          <div class="form-group">
+            <label>Phone Number *</label>
+            <input type="tel" id="signupPhone" placeholder="e.g. +91 9876543210" required>
+          </div>
+          <div class="form-group">
+            <label>Email Address *</label>
+            <input type="email" id="signupEmail" placeholder="you@example.com" required>
+          </div>
+          <div class="form-group">
+            <label>Delivery Area / Locality</label>
+            <input type="text" id="signupLocality" placeholder="e.g. HSR Layout, Bengaluru">
+          </div>
+          <div class="form-group">
+            <label>Password *</label>
+            <input type="password" id="signupPassword" placeholder="Min 6 characters" required minlength="6">
+          </div>
+          <button type="submit" class="submit-btn" id="signupBtn">✨ Create Account</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- PROFILE VIEW (shown when logged in) -->
+    <div id="profileView" style="display:none">
+      <div class="profile-card">
+        <div class="profile-avatar" id="profileInitial">R</div>
+        <h2 class="profile-name" id="profileName">—</h2>
+        <p class="profile-email" id="profileEmail">—</p>
+        <div class="profile-info">
+          <div class="profile-info-row">
+            <span class="label">📱 Phone</span>
+            <span class="value" id="profilePhone">—</span>
+          </div>
+          <div class="profile-info-row">
+            <span class="label">📍 Locality</span>
+            <span class="value" id="profileLocality">—</span>
+          </div>
+          <div class="profile-info-row">
+            <span class="label">📅 Member Since</span>
+            <span class="value" id="profileSince">—</span>
+          </div>
+        </div>
+        <div class="profile-actions">
+          <button class="btn-outline-profile" onclick="window.location.href='products.html'">🛒 Continue Shopping</button>
+          <button class="btn-danger-profile" onclick="handleLogout()">🚪 Log Out</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <span>© 2024 Weaver's Crafting. All rights reserved. | <a href="https://www.cypherswift.com/" target="_blank">CypherSwift InfoTech</a></span>
+</footer>
+
+<script src="config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const sb = window.supabase.createClient(WC_CONFIG.SUPABASE_URL, WC_CONFIG.SUPABASE_ANON_KEY);
+let pendingVerifyEmail = '';
+const RESEND_COOLDOWN_SEC = 120;
+
+function isRateLimitError(msg) {
+  return /rate limit|too many requests|email.*limit/i.test(msg || '');
+}
+
+function formatAuthError(msg) {
+  if (isRateLimitError(msg)) {
+    return 'Supabase email limit reached (~4 emails/hour on free plan). Go to Supabase Dashboard → Authentication → Providers → Email → turn OFF "Confirm email". Then sign in with your password. Or wait 1 hour and try again.';
+  }
+  return msg;
+}
+
+function canResendNow() {
+  const until = parseInt(sessionStorage.getItem('wc_resend_until') || '0', 10);
+  return Date.now() >= until;
+}
+
+function startResendCooldown() {
+  sessionStorage.setItem('wc_resend_until', String(Date.now() + RESEND_COOLDOWN_SEC * 1000));
+}
+
+async function finalizeLogin(data) {
+  const { data: custData } = await sb.from('customers')
+    .select('*')
+    .eq('auth_user_id', data.user.id)
+    .single();
+
+  if (custData) {
+    localStorage.setItem('wc_customer', JSON.stringify({
+      name: custData.full_name,
+      phone: custData.phone,
+      email: custData.email,
+      locality: custData.locality || '',
+      userId: custData.auth_user_id
+    }));
+    await sb.from('customers').update({ last_login: new Date().toISOString() })
+      .eq('auth_user_id', data.user.id);
+  } else {
+    const meta = data.user.user_metadata || {};
+    const profile = {
+      auth_user_id: data.user.id,
+      full_name: meta.full_name || data.user.email,
+      phone: meta.phone || '—',
+      email: data.user.email,
+      locality: meta.locality || '',
+      last_login: new Date().toISOString()
+    };
+    await sb.from('customers').upsert([profile], { onConflict: 'auth_user_id' });
+    localStorage.setItem('wc_customer', JSON.stringify({
+      name: profile.full_name,
+      phone: profile.phone,
+      email: profile.email,
+      locality: profile.locality,
+      userId: data.user.id
+    }));
+  }
+
+  showAlert('✅ Welcome! Redirecting...', 'success');
+  setTimeout(() => {
+    const returnTo = sessionStorage.getItem('wc_return_to');
+    window.location.href = returnTo || 'products.html';
+    sessionStorage.removeItem('wc_return_to');
+  }, 1000);
+}
+
+// ── TAB SWITCHING ──
+function switchTab(tab) {
+  document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+  if (tab === 'login') {
+    document.querySelectorAll('.auth-tab')[0].classList.add('active');
+    document.getElementById('loginForm').classList.add('active');
+  } else {
+    document.querySelectorAll('.auth-tab')[1].classList.add('active');
+    document.getElementById('signupForm').classList.add('active');
+  }
+  if (tab === 'signup') hideResendBox();
+  clearAlert();
+}
+
+function showAlert(msg, type = 'error') {
+  const el = document.getElementById('authAlert');
+  el.textContent = msg;
+  el.className = 'auth-alert ' + type;
+}
+function clearAlert() {
+  document.getElementById('authAlert').className = 'auth-alert';
+}
+
+function showResendBox(email) {
+  pendingVerifyEmail = email;
+  document.getElementById('resendBox').classList.add('visible');
+}
+
+function hideResendBox() {
+  document.getElementById('resendBox').classList.remove('visible');
+  pendingVerifyEmail = '';
+}
+
+async function resendConfirmation() {
+  const email = pendingVerifyEmail || document.getElementById('loginEmail').value.trim();
+  if (!email) { showAlert('Enter your email address first.', 'error'); return; }
+  if (!canResendNow()) {
+    const left = Math.ceil((parseInt(sessionStorage.getItem('wc_resend_until'), 10) - Date.now()) / 1000);
+    showAlert(`Please wait ${left}s before resending. Or disable "Confirm email" in Supabase Dashboard to skip verification entirely.`, 'info');
+    return;
+  }
+  const btn = document.getElementById('resendBtn');
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+  const { error } = await sb.auth.resend({
+    type: 'signup',
+    email: email,
+    options: { emailRedirectTo: window.location.origin + window.location.pathname }
+  });
+  if (error) {
+    showAlert('❌ ' + formatAuthError(error.message), isRateLimitError(error.message) ? 'info' : 'error');
+  } else {
+    startResendCooldown();
+    showAlert('✅ Verification email sent! Check your inbox and spam folder.', 'success');
+  }
+  btn.disabled = false;
+  btn.textContent = '↻ Resend Verification Email';
+}
+
+// ── SIGN UP ──
+async function handleSignup(e) {
+  e.preventDefault();
+  const name = document.getElementById('signupName').value.trim();
+  const phone = document.getElementById('signupPhone').value.trim();
+  const email = document.getElementById('signupEmail').value.trim();
+  const locality = document.getElementById('signupLocality').value.trim() || '';
+  const password = document.getElementById('signupPassword').value;
+  const btn = document.getElementById('signupBtn');
+
+  btn.disabled = true;
+  btn.textContent = '⏳ Creating account...';
+
+  const redirectUrl = window.location.origin + window.location.pathname;
+
+  const { data: authData, error: authError } = await sb.auth.signUp({
+    email: email,
+    password: password,
+    options: {
+      emailRedirectTo: redirectUrl,
+      data: { full_name: name, phone: phone, locality: locality }
+    }
+  });
+
+  if (authError) {
+    const msg = authError.message.toLowerCase();
+
+    // Account may already exist — try signing in instead
+    if (msg.includes('already registered') || msg.includes('already been registered')) {
+      const { data: loginTry, error: loginErr } = await sb.auth.signInWithPassword({ email, password });
+      if (!loginErr && loginTry.session) {
+        await finalizeLogin(loginTry);
+        return;
+      }
+      switchTab('login');
+      document.getElementById('loginEmail').value = email;
+      showAlert('This email is already registered. Please sign in with your password.', 'info');
+      btn.disabled = false;
+      btn.textContent = '✨ Create Account';
+      return;
+    }
+
+    // Rate limit hit — account may have been created on a previous attempt
+    if (isRateLimitError(authError.message)) {
+      const { data: loginTry, error: loginErr } = await sb.auth.signInWithPassword({ email, password });
+      if (!loginErr && loginTry.session) {
+        await finalizeLogin(loginTry);
+        return;
+      }
+      if (loginErr && loginErr.message.toLowerCase().includes('email not confirmed')) {
+        switchTab('login');
+        document.getElementById('loginEmail').value = email;
+        showAlert('Account created but email verification is blocked by Supabase rate limit. Fix: Supabase Dashboard → Authentication → Providers → Email → turn OFF "Confirm email", then sign in. Or run the SQL in supabase/fix-rate-limit.sql to confirm your email manually.', 'info');
+        btn.disabled = false;
+        btn.textContent = '✨ Create Account';
+        return;
+      }
+    }
+
+    showAlert('❌ ' + formatAuthError(authError.message), isRateLimitError(authError.message) ? 'info' : 'error');
+    btn.disabled = false;
+    btn.textContent = '✨ Create Account';
+    return;
+  }
+
+  const userId = authData.user?.id;
+
+  // Email confirmation ON → no session until user clicks link in email
+  if (!authData.session) {
+    switchTab('login');
+    document.getElementById('loginEmail').value = email;
+    showResendBox(email);
+    showAlert('✅ Account created! Please check your email and click the verification link before signing in.', 'info');
+    btn.disabled = false;
+    btn.textContent = '✨ Create Account';
+    return;
+  }
+
+  // Email confirmation OFF → logged in immediately
+  if (userId) {
+    await sb.from('customers').upsert([{
+      auth_user_id: userId,
+      full_name: name,
+      phone: phone,
+      email: email,
+      locality: locality
+    }], { onConflict: 'auth_user_id' });
+  }
+
+  localStorage.setItem('wc_customer', JSON.stringify({ name, phone, email, locality, userId }));
+
+  showAlert('✅ Account created! Redirecting...', 'success');
+  setTimeout(() => {
+    const returnTo = sessionStorage.getItem('wc_return_to');
+    window.location.href = returnTo || 'products.html';
+    sessionStorage.removeItem('wc_return_to');
+  }, 1500);
+}
+
+// ── SIGN IN ──
+async function handleLogin(e) {
+  e.preventDefault();
+  const email = document.getElementById('loginEmail').value.trim();
+  const password = document.getElementById('loginPassword').value;
+  const btn = document.getElementById('loginBtn');
+
+  btn.disabled = true;
+  btn.textContent = '⏳ Signing in...';
+
+  const { data, error } = await sb.auth.signInWithPassword({
+    email: email,
+    password: password
+  });
+
+  if (error) {
+    const msg = error.message.toLowerCase();
+    if (msg.includes('email not confirmed')) {
+      showResendBox(email);
+      showAlert('📧 Email not verified yet. Best fix: Supabase Dashboard → Authentication → Providers → Email → turn OFF "Confirm email", then sign in again. Or check inbox for the verification link.', 'info');
+    } else if (isRateLimitError(error.message)) {
+      hideResendBox();
+      showAlert('❌ ' + formatAuthError(error.message), 'info');
+    } else {
+      hideResendBox();
+      showAlert('❌ ' + error.message, 'error');
+    }
+    btn.disabled = false;
+    btn.textContent = '🔓 Sign In';
+    return;
+  }
+
+  hideResendBox();
+  await finalizeLogin(data);
+}
+
+// ── LOG OUT ──
+async function handleLogout() {
+  if (!confirm('Are you sure you want to log out?')) return;
+  await sb.auth.signOut();
+  localStorage.removeItem('wc_customer');
+  window.location.reload();
+}
+
+// ── SHOW PROFILE IF LOGGED IN ──
+async function checkSession() {
+  const { data: { session } } = await sb.auth.getSession();
+  if (session) {
+    document.getElementById('authView').style.display = 'none';
+    document.getElementById('profileView').style.display = 'block';
+
+    const cached = JSON.parse(localStorage.getItem('wc_customer') || '{}');
+    
+    // Try loading from DB
+    const { data: custData } = await sb.from('customers')
+      .select('*')
+      .eq('auth_user_id', session.user.id)
+      .single();
+
+    const profile = custData || cached;
+    const name = profile.full_name || profile.name || session.user.email;
+    const email = profile.email || session.user.email;
+    const phone = profile.phone || '—';
+    const locality = profile.locality || '—';
+    const since = profile.created_at 
+      ? new Date(profile.created_at).toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' })
+      : '—';
+
+    document.getElementById('profileInitial').textContent = name.charAt(0).toUpperCase();
+    document.getElementById('profileName').textContent = name;
+    document.getElementById('profileEmail').textContent = email;
+    document.getElementById('profilePhone').textContent = phone;
+    document.getElementById('profileLocality').textContent = locality;
+    document.getElementById('profileSince').textContent = since;
+
+    // Sync localStorage
+    localStorage.setItem('wc_customer', JSON.stringify({
+      name: profile.full_name || name,
+      phone, email, locality,
+      userId: session.user.id
+    }));
+
+    const navBtn = document.getElementById('navAccountBtn');
+    if (navBtn) navBtn.textContent = `👤 ${name.split(' ')[0]}`;
+  }
+}
+checkSession();
+
+// Handle return from email verification link
+sb.auth.onAuthStateChange((event, session) => {
+  if (event === 'SIGNED_IN' && session) {
+    hideResendBox();
+    checkSession();
+  }
+});
+
+// ── NAV EVENTS ──
+function openMobileNav() { document.getElementById('mobileNav').classList.add('open'); }
+function closeMobileNav() { document.getElementById('mobileNav').classList.remove('open'); }
+</script>
+</body>
+</html>

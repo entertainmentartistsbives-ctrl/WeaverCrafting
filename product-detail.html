@@ -138,6 +138,9 @@
   }
   </script>
 
+<script src="config.js"></script>
+<script src="js/seo-defaults.js"></script>
+<script src="js/seo-loader.js" data-page="product-detail"></script>
 </head>
 <body>
 
@@ -167,6 +170,7 @@
     <li><a href="b2b.html">B2B Solutions</a></li>
   </ul>
   <a href="https://wa.me/919742630886" target="_blank" class="nav-cta">📱 WhatsApp Us</a>
+  <a href="customer-login.html" class="nav-cta" id="navAccountBtn" style="background:var(--gold);color:var(--charcoal);margin-left:6px">👤 My Account</a>
   <div class="nav-hamburger" onclick="openMobileNav()"><span></span><span></span><span></span></div>
 </nav>
 
@@ -179,6 +183,7 @@
   <a href="about.html" onclick="closeMobileNav()">About Us</a>
   <a href="contact.html" onclick="closeMobileNav()">Contact</a>
   <a href="b2b.html" onclick="closeMobileNav()">B2B Solutions</a>
+  <a href="customer-login.html" onclick="closeMobileNav()">👤 My Account</a>
 </div>
 
 <!-- Product Detail Workspace -->
@@ -305,7 +310,39 @@
       <span id="cartDrawerTotalCount">0</span>
     </div>
     
-    <!-- Enquiry Checkout Form -->
+    <!-- Auth-Gated Checkout -->
+    <div id="loginPromptContainer" style="display:none; margin-top:15px; border-top:1px dashed var(--border); padding-top:15px;">
+      <div style="text-align:center; padding:16px 0;">
+        <div style="font-size:36px; margin-bottom:12px;">🔐</div>
+        <h4 style="font-size:16px; font-weight:700; margin-bottom:8px; color:var(--text-dark);">Login for Faster Enquiries</h4>
+        <p style="font-size:13px; color:var(--text-light); margin-bottom:18px; line-height:1.5;">Sign in to auto-fill your details.<br>Or continue as guest below.</p>
+        <a href="#" onclick="redirectToLogin()" style="display:block; padding:14px; background:var(--primary); color:#fff; border-radius:8px; text-decoration:none; font-weight:700; font-size:14px; margin-bottom:10px; transition:.3s;">🔓 Sign In / Create Account</a>
+        <button onclick="showGuestForm()" style="display:block; width:100%; padding:12px; background:transparent; border:1.5px solid var(--border); color:var(--text-mid); border-radius:8px; font-size:13px; font-weight:600; cursor:pointer; transition:.3s; font-family:inherit;">Continue as Guest →</button>
+      </div>
+    </div>
+
+    <div id="loggedInCheckoutContainer" style="display:none; margin-top:15px; border-top:1px dashed var(--border); padding-top:15px;">
+      <div style="background:#f0faf0; border:1px solid rgba(46,204,113,.25); border-radius:10px; padding:16px; margin-bottom:16px;">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+          <span style="font-size:20px;">✅</span>
+          <strong style="font-size:14px; color:#27ae60;">Logged in as:</strong>
+        </div>
+        <div style="font-size:14px; color:var(--text-dark); line-height:1.7;">
+          <strong id="loggedCustName">—</strong><br>
+          📱 <span id="loggedCustPhone">—</span><br>
+          ✉️ <span id="loggedCustEmail">—</span><br>
+          📍 <span id="loggedCustLocality">—</span>
+        </div>
+      </div>
+      <form id="loggedInCheckoutForm" onsubmit="submitEnquiry(event)">
+        <div class="form-group">
+          <label for="loggedCustNotes">Additional Notes (Optional)</label>
+          <textarea id="loggedCustNotes" rows="3" placeholder="Specify any custom requests..."></textarea>
+        </div>
+        <button type="submit" class="btn-success" style="width:100%; margin-top:10px;">✅ Confirm & Send Enquiry</button>
+      </form>
+    </div>
+
     <div id="checkoutFormContainer" style="display:none; margin-top:15px; border-top:1px dashed var(--border); padding-top:15px;">
       <h4 style="font-size:15px; font-weight:700; margin-bottom:12px; color:var(--text-dark);">Enter Your Details</h4>
       <form id="checkoutForm" onsubmit="submitEnquiry(event)">
@@ -1067,6 +1104,8 @@ function toggleCartDrawer(open) {
     drawer.classList.remove('active');
     overlay.classList.remove('active');
     document.getElementById('checkoutFormContainer').style.display = 'none';
+    document.getElementById('loginPromptContainer').style.display = 'none';
+    document.getElementById('loggedInCheckoutContainer').style.display = 'none';
     document.getElementById('cartDrawerActions').style.display = 'flex';
   }
 }
@@ -1095,10 +1134,14 @@ function updateCartUI() {
     content.innerHTML = '<p style="text-align:center; color:var(--text-light); margin-top:50px;">Your cart is empty.</p>';
     document.getElementById('cartDrawerActions').style.display = 'none';
     document.getElementById('checkoutFormContainer').style.display = 'none';
+    document.getElementById('loginPromptContainer').style.display = 'none';
+    document.getElementById('loggedInCheckoutContainer').style.display = 'none';
     return;
   }
 
-  if (document.getElementById('checkoutFormContainer').style.display === 'none') {
+  if (document.getElementById('checkoutFormContainer').style.display === 'none'
+      && document.getElementById('loginPromptContainer').style.display === 'none'
+      && document.getElementById('loggedInCheckoutContainer').style.display === 'none') {
     document.getElementById('cartDrawerActions').style.display = 'flex';
   }
 
@@ -1126,17 +1169,68 @@ function updateCartUI() {
 
 function showCheckoutForm() {
   document.getElementById('cartDrawerActions').style.display = 'none';
+
+  const customer = JSON.parse(localStorage.getItem('wc_customer') || 'null');
+
+  if (customer && customer.name) {
+    document.getElementById('loggedCustName').textContent = customer.name;
+    document.getElementById('loggedCustPhone').textContent = customer.phone || '—';
+    document.getElementById('loggedCustEmail').textContent = customer.email || '—';
+    document.getElementById('loggedCustLocality').textContent = customer.locality || '—';
+    document.getElementById('loggedInCheckoutContainer').style.display = 'block';
+    document.getElementById('loginPromptContainer').style.display = 'none';
+    document.getElementById('checkoutFormContainer').style.display = 'none';
+  } else {
+    document.getElementById('loginPromptContainer').style.display = 'block';
+    document.getElementById('loggedInCheckoutContainer').style.display = 'none';
+    document.getElementById('checkoutFormContainer').style.display = 'none';
+  }
+}
+
+function redirectToLogin() {
+  sessionStorage.setItem('wc_return_to', window.location.pathname.split('/').pop() || 'product-detail.html');
+  window.location.href = 'customer-login.html';
+}
+
+function showGuestForm() {
+  document.getElementById('loginPromptContainer').style.display = 'none';
   document.getElementById('checkoutFormContainer').style.display = 'block';
 }
 
-function submitEnquiry(e) {
+async function submitEnquiry(e) {
   e.preventDefault();
 
-  const name = document.getElementById('custName').value.trim();
-  const phone = document.getElementById('custPhone').value.trim();
-  const email = document.getElementById('custEmail').value.trim() || 'Not Provided';
-  const locality = document.getElementById('custLocality').value.trim() || 'Not Provided';
-  const notes = document.getElementById('custNotes').value.trim() || 'None';
+  const customer = JSON.parse(localStorage.getItem('wc_customer') || 'null');
+  let name, phone, email, locality, notes;
+  const isLoggedIn = customer && customer.name && document.getElementById('loggedInCheckoutContainer').style.display !== 'none';
+
+  if (isLoggedIn) {
+    name = customer.name;
+    phone = customer.phone || 'Not Provided';
+    email = customer.email || 'Not Provided';
+    locality = customer.locality || 'Not Provided';
+    notes = document.getElementById('loggedCustNotes').value.trim() || 'None';
+  } else {
+    name = document.getElementById('custName').value.trim();
+    phone = document.getElementById('custPhone').value.trim();
+    email = document.getElementById('custEmail').value.trim() || 'Not Provided';
+    locality = document.getElementById('custLocality').value.trim() || 'Not Provided';
+    notes = document.getElementById('custNotes').value.trim() || 'None';
+  }
+
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+  await supabaseClient.from('enquiries').insert([{
+    auth_user_id: isLoggedIn ? (customer.userId || null) : null,
+    customer_name: name,
+    customer_phone: phone,
+    customer_email: email,
+    customer_locality: locality,
+    notes: notes,
+    cart_items: cart,
+    total_items: totalItems,
+    is_guest: !isLoggedIn,
+    status: 'new'
+  }]);
 
   let orderSummary = '';
   cart.forEach((item, index) => {
@@ -1311,8 +1405,36 @@ async function loadDynamicProducts() {
   }
 }
 
+// ── CUSTOMER SESSION SYNC ───────────────────────────────
+function updateNavAccount(name) {
+  const btn = document.getElementById('navAccountBtn');
+  if (btn) btn.textContent = name ? `👤 ${name.split(' ')[0]}` : '👤 My Account';
+}
+
+async function syncCustomerSession() {
+  const { data: { session } } = await supabaseClient.auth.getSession();
+  if (session) {
+    const { data: custData } = await supabaseClient.from('customers')
+      .select('*').eq('auth_user_id', session.user.id).single();
+    if (custData) {
+      localStorage.setItem('wc_customer', JSON.stringify({
+        name: custData.full_name,
+        phone: custData.phone,
+        email: custData.email,
+        locality: custData.locality || '',
+        userId: custData.auth_user_id
+      }));
+      updateNavAccount(custData.full_name);
+      return;
+    }
+  }
+  localStorage.removeItem('wc_customer');
+  updateNavAccount(null);
+}
+
 // Initial Page Load with Supabase Loader
 async function initProductPage() {
+  await syncCustomerSession();
   await loadDynamicProducts();
   initProductDetailUI();
   updateCartUI();

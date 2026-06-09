@@ -1,0 +1,2 @@
+-- Enquiries table — included in complete-setup.sql
+-- Run supabase/complete-setup.sql instead (safe to re-run).
