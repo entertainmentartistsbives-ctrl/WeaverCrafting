@@ -515,7 +515,8 @@
   }
   @media(max-width:540px){
     .products-grid{grid-template-columns:1fr}
-    .gallery-grid{columns:1}
+    .gallery-grid{display:flex;flex-direction:column;gap:16px;columns:auto;}
+    .gallery-item{margin-bottom:0;}
     .hero-title{font-size:40px}
   }
 
