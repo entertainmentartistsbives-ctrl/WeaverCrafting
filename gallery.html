@@ -813,7 +813,17 @@ if (gg) {
       gg.innerHTML = '<p style="text-align:center; padding:40px; color:var(--muted); grid-column: 1 / -1;">No images found.</p>';
     } else {
       galleryImgs.forEach((src,i)=>{
-        gg.innerHTML += `<div class="gallery-item" onclick="openLightbox(${i})"><img src="${src}" alt="Gallery ${i+1}" loading="lazy"></div>`;
+        const item = document.createElement('div');
+        item.className = 'gallery-item';
+        item.onclick = function() { openLightbox(i); };
+        
+        const img = document.createElement('img');
+        img.src = src;
+        img.alt = `Gallery ${i+1}`;
+        img.loading = "lazy";
+        
+        item.appendChild(img);
+        gg.appendChild(item);
       });
     }
   }
