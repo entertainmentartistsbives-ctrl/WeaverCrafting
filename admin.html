@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Weaver's Crafting — Admin Panel</title>
+<title>Weaver's Crafting — Admin Panel</title>\n    <meta name="robots" content="noindex, nofollow">\n
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -352,6 +352,18 @@ td.actions{display:flex;gap:8px}
       <br><small style="color:#555;margin-top:6px;display:block">Updates automatically every time you save SEO settings — no manual upload needed.</small>
     </div>
 
+    <div class="seo-card" style="border-color:#3498db">
+      <div class="seo-card__header" style="background:rgba(52,152,219,.1);border-bottom-color:#3498db">
+        <h3 style="color:#3498db">🚀 Vercel Live Website Sync</h3>
+      </div>
+      <div class="seo-card__body">
+        <p style="font-size:0.88em;color:#aaa;margin-bottom:12px;line-height:1.6">Since your website is hosted on Vercel, SEO changes need to be "baked" into the live HTML files so WhatsApp and Google can read them instantly. Paste your <strong>Vercel Deploy Hook URL</strong> below. We will automatically trigger a rebuild when you save SEO settings.</p>
+        <div class="form-group full">
+          <input id="vercelWebhookUrl" placeholder="https://api.vercel.com/v1/integrations/deploy/prj_.../url_..." style="border-color:#3498db">
+        </div>
+      </div>
+    </div>
+
     <div class="seo-card">
       <div class="seo-card__header"><h3>📝 SEO Settings — <span id="seoPageLabel">Home</span></h3></div>
       <div class="seo-card__body">
@@ -654,6 +666,12 @@ async function loadAllSeoFromDb() {
     const slug = row.category.replace('seo_', '');
     try { seoDbMap[slug] = { dbId: row.id, ...JSON.parse(row.image_url) }; } catch(e) {}
   });
+
+  // Load Vercel Webhook if it exists
+  const { data: hookData } = await sb.from('images').select('image_url').eq('category', 'vercel_webhook').maybeSingle();
+  if (hookData && hookData.image_url) {
+    document.getElementById('vercelWebhookUrl').value = hookData.image_url;
+  }
 }
 
 function getSeoForPage(slug) {
@@ -718,12 +736,36 @@ async function saveSeo() {
   }
   if (error) { showAlert('Error saving SEO: ' + error.message, 'error'); return; }
   await loadSeoForm();
-  const published = await publishSitemap(false);
-  if (published) {
-    showAlert('✅ SEO saved & sitemap auto-published! Google will see changes within minutes.');
-  } else {
-    showAlert('✅ SEO saved! Sitemap publish failed — click "Publish Sitemap Now" or run storage setup SQL.', 'error');
+  
+  // Save webhook if provided
+  const hookUrl = document.getElementById('vercelWebhookUrl').value.trim();
+  if (hookUrl) {
+    const { data: existingHook } = await sb.from('images').select('id').eq('category', 'vercel_webhook').maybeSingle();
+    if (existingHook) {
+      await sb.from('images').update({ image_url: hookUrl }).eq('id', existingHook.id);
+    } else {
+      await sb.from('images').insert([{ category: 'vercel_webhook', image_url: hookUrl }]);
+    }
+    // Trigger Vercel deploy
+    try {
+      fetch(hookUrl, { method: 'POST' });
+    } catch (err) {
+      console.warn('Deploy hook trigger failed:', err);
+    }
   }
+
+  const published = await publishSitemap(false);
+  let msg = published 
+    ? '✅ SEO saved & sitemap auto-published!' 
+    : '✅ SEO saved! Sitemap publish failed — run storage setup SQL.';
+    
+  if (hookUrl) {
+    msg += ' 🚀 Vercel rebuild triggered! Changes will be live in ~1 minute.';
+  } else {
+    msg += ' (Add Vercel Hook URL to sync live site!)';
+  }
+  
+  showAlert(msg, published ? 'success' : 'error');
 }
 
 function buildSitemapXml() {

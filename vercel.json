@@ -1,8 +1,7 @@
 {
   "rewrites": [
-    {
-      "source": "/sitemap.xml",
-      "destination": "https://owgqxbgjmoqlhzztvety.supabase.co/storage/v1/object/public/site/sitemap.xml"
-    }
+    { "source": "/sitemap.xml", "destination": "/api/sitemap" },
+    { "source": "/locations/:slug", "destination": "/api/location?slug=:slug" },
+    { "source": "/api/(.*)", "destination": "/api/index" }
   ]
 }
