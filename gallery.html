@@ -804,7 +804,10 @@ if (gg) {
 
     // 2. Clear out any placeholders and update the array if data exists
     if (data && data.length > 0) {
-      galleryImgs = data.map(row => row.image_url);
+      const validUrls = data.map(row => row.image_url).filter(url => url && (url.startsWith('http') || url.startsWith('/')));
+      if (validUrls.length > 0) {
+        galleryImgs = validUrls;
+      }
     }
 
     gg.innerHTML = ''; 
