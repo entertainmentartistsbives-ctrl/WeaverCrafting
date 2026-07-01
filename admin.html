@@ -747,11 +747,7 @@ async function saveSeo() {
       await sb.from('images').insert([{ category: 'vercel_webhook', image_url: hookUrl }]);
     }
     // Trigger Vercel deploy
-    try {
-      fetch(hookUrl, { method: 'POST' });
-    } catch (err) {
-      console.warn('Deploy hook trigger failed:', err);
-    }
+    fetch(hookUrl, { method: 'POST' }).catch(err => console.warn('Deploy hook trigger failed:', err));
   }
 
   const published = await publishSitemap(false);
