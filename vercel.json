@@ -1,5 +1,6 @@
 {
   "outputDirectory": ".",
+  "cleanUrls": true,
   "rewrites": [
     { "source": "/sitemap.xml", "destination": "/api/sitemap" },
     { "source": "/locations/:slug", "destination": "/api/location?slug=:slug" },
