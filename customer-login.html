@@ -128,13 +128,29 @@ footer a{color:var(--gold);text-decoration:none}
 .mobile-nav a{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;color:#fff;text-decoration:none;transition:color .3s}
 .mobile-nav a:hover{color:var(--gold)}
 .mobile-nav-close{position:absolute;top:28px;right:28px;font-size:28px;color:#fff;cursor:pointer}
-</style>
+
+    .nav-logo-img {
+      height: clamp(40px, 6vw, 65px);
+      width: auto;
+      display: block;
+      border-radius: 8px;
+      box-shadow: 0 0 20px 8px rgba(201, 168, 76, 0.5);
+      border: 1px solid rgba(201, 168, 76, 0.4);
+      transition: height 0.3s ease;
+    }
+    @media (max-width: 768px) {
+      .nav-logo-img {
+        height: 48px;
+        box-shadow: 0 0 10px 4px rgba(201, 168, 76, 0.4);
+      }
+    }
+  </style>
 </head>
 <body>
 
 <!-- Nav -->
 <nav>
-  <a href="index.html" class="nav-logo" style="padding: 0; display: flex; align-items: center;"><img src="logo.png" alt="Weavers Crafting Logo" style="height: 65px; width: auto; display: block; border-radius: 8px; box-shadow: 0 0 20px 8px rgba(201, 168, 76, 0.5); border: 1px solid rgba(201, 168, 76, 0.4);"></a>
+  <a href="index.html" class="nav-logo" style="padding: 0; display: flex; align-items: center;"><img src="logo.svg" onerror="this.onerror=null; this.src='logo.png';" alt="Weavers Crafting Logo" class="nav-logo-img"></a>
   <ul class="nav-links">
     <li><a href="products.html">Products</a></li>
     <li><a href="craftsmanship.html">Craftsmanship</a></li>

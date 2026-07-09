@@ -1986,6 +1986,39 @@
       color: #fff;
       cursor: pointer
     }
+  
+    .nav-logo-img {
+      height: clamp(40px, 6vw, 65px);
+      width: auto;
+      display: block;
+      border-radius: 8px;
+      box-shadow: 0 0 20px 8px rgba(201, 168, 76, 0.5);
+      border: 1px solid rgba(201, 168, 76, 0.4);
+      transition: height 0.3s ease;
+    }
+    @media (max-width: 768px) {
+      .nav-logo-img {
+        height: 48px;
+        box-shadow: 0 0 10px 4px rgba(201, 168, 76, 0.4);
+      }
+    }
+  
+    .footer-logo-img {
+      height: clamp(45px, 5vw, 55px);
+      width: auto;
+      display: block;
+      margin-bottom: 12px;
+      border-radius: 8px;
+      box-shadow: 0 0 15px 5px rgba(201, 168, 76, 0.4);
+      border: 1px solid rgba(201, 168, 76, 0.3);
+      transition: height 0.3s ease;
+    }
+    @media (max-width: 768px) {
+      .footer-logo-img {
+        height: 40px;
+        box-shadow: 0 0 10px 3px rgba(201, 168, 76, 0.4);
+      }
+    }
   </style>
 
   <!-- Comprehensive SEO Schema -->
@@ -2064,7 +2097,7 @@
 
   <!-- Nav -->
   <nav id="mainNav">
-    <a href="index.html" class="nav-logo" style="padding: 0; display: flex; align-items: center;"><img src="logo.png" alt="Weavers Crafting Logo" style="height: 65px; width: auto; display: block; border-radius: 8px; box-shadow: 0 0 20px 8px rgba(201, 168, 76, 0.5); border: 1px solid rgba(201, 168, 76, 0.4);"></a>
+    <a href="index.html" class="nav-logo" style="padding: 0; display: flex; align-items: center;"><img src="logo.svg" onerror="this.onerror=null; this.src='logo.png';" alt="Weavers Crafting Logo" class="nav-logo-img"></a>
     <ul class="nav-links">
       <li><a href="products.html">Products</a></li>
       <li><a href="craftsmanship.html">Craftsmanship</a></li>
@@ -2882,6 +2915,39 @@
       max-height: 200px;
       padding-top: 14px
     }
+  
+    .nav-logo-img {
+      height: clamp(40px, 6vw, 65px);
+      width: auto;
+      display: block;
+      border-radius: 8px;
+      box-shadow: 0 0 20px 8px rgba(201, 168, 76, 0.5);
+      border: 1px solid rgba(201, 168, 76, 0.4);
+      transition: height 0.3s ease;
+    }
+    @media (max-width: 768px) {
+      .nav-logo-img {
+        height: 48px;
+        box-shadow: 0 0 10px 4px rgba(201, 168, 76, 0.4);
+      }
+    }
+  
+    .footer-logo-img {
+      height: clamp(45px, 5vw, 55px);
+      width: auto;
+      display: block;
+      margin-bottom: 12px;
+      border-radius: 8px;
+      box-shadow: 0 0 15px 5px rgba(201, 168, 76, 0.4);
+      border: 1px solid rgba(201, 168, 76, 0.3);
+      transition: height 0.3s ease;
+    }
+    @media (max-width: 768px) {
+      .footer-logo-img {
+        height: 40px;
+        box-shadow: 0 0 10px 3px rgba(201, 168, 76, 0.4);
+      }
+    }
   </style>
   <script>
     function toggleFaq(el) {
@@ -2901,7 +2967,7 @@
   <footer>
     <div class="footer-grid">
       <div>
-        <div class="footer-brand"><img src="logo.png" alt="Weavers Crafting Logo" style="height: 55px; width: auto; display: block; margin-bottom: 12px; border-radius: 8px; box-shadow: 0 0 15px 5px rgba(201, 168, 76, 0.4); border: 1px solid rgba(201, 168, 76, 0.3);"></div>
+        <div class="footer-brand"><img src="logo.svg" onerror="this.onerror=null; this.src='logo.png';" alt="Weavers Crafting Logo" class="footer-logo-img"></div>
         <p class="footer-tagline">Premium handcrafted furniture for homes across Bengaluru. Sofas, beds, dining sets and
           more — made with love.</p>
         <div style="margin-top:24px;display:flex;gap:12px">
