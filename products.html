@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en-IN" prefix="og: https://ogp.me/ns#">
 <head>
-  <base href="/">
   <link rel="icon" type="image/png" href="favicon.png">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -279,30 +278,30 @@
 
 <!-- Nav -->
 <nav id="mainNav">
-  <a href="/" class="nav-logo" style="padding: 0; display: flex; align-items: center;"><img src="logo.svg" onerror="this.onerror=null; this.src='logo.png';" alt="Weavers Crafting Logo" class="nav-logo-img"></a>
+  <a href="index.html" class="nav-logo" style="padding: 0; display: flex; align-items: center;"><img src="logo.svg" onerror="this.onerror=null; this.src='logo.png';" alt="Weavers Crafting Logo" class="nav-logo-img"></a>
   <ul class="nav-links">
-    <li><a href="/products">Products</a></li>
-    <li><a href="/craftsmanship">Craftsmanship</a></li>
-    <li><a href="/gallery">Gallery</a></li>
-    <li><a href="/about">About Us</a></li>
-    <li><a href="/contact">Contact</a></li>
-    <li><a href="/b2b">B2B Solutions</a></li>
+    <li><a href="products.html">Products</a></li>
+    <li><a href="craftsmanship.html">Craftsmanship</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="b2b.html">B2B Solutions</a></li>
   </ul>
-  <a href="https://wa.me/919742630886" target="_blank" class="nav-cta" style="background:var(--gold);color:var(--charcoal);">📱 WhatsApp Us</a>
-  <a href="/customer-login" class="nav-cta" id="navAccountBtn" style="background:var(--gold);color:var(--charcoal);margin-left:6px">👤 My Account</a>
+  <a href="https://wa.me/919742630886" target="_blank" class="nav-cta">📱 WhatsApp Us</a>
+  <a href="customer-login.html" class="nav-cta" id="navAccountBtn" style="background:var(--gold);color:var(--charcoal);margin-left:6px">👤 My Account</a>
   <div class="nav-hamburger" onclick="openMobileNav()"><span></span><span></span><span></span></div>
 </nav>
 
 <!-- Mobile Nav -->
 <div class="mobile-nav" id="mobileNav">
   <span class="mobile-nav-close" onclick="closeMobileNav()">✕</span>
-  <a href="/products" onclick="closeMobileNav()">Products</a>
-  <a href="/craftsmanship" onclick="closeMobileNav()">Craftsmanship</a>
-  <a href="/gallery" onclick="closeMobileNav()">Gallery</a>
-  <a href="/about" onclick="closeMobileNav()">About Us</a>
-  <a href="/contact" onclick="closeMobileNav()">Contact</a>
-  <a href="/b2b" onclick="closeMobileNav()">B2B Solutions</a>
-  <a href="/customer-login" onclick="closeMobileNav()">👤 My Account</a>
+  <a href="products.html" onclick="closeMobileNav()">Products</a>
+  <a href="craftsmanship.html" onclick="closeMobileNav()">Craftsmanship</a>
+  <a href="gallery.html" onclick="closeMobileNav()">Gallery</a>
+  <a href="about.html" onclick="closeMobileNav()">About Us</a>
+  <a href="contact.html" onclick="closeMobileNav()">Contact</a>
+  <a href="b2b.html" onclick="closeMobileNav()">B2B Solutions</a>
+  <a href="customer-login.html" onclick="closeMobileNav()">👤 My Account</a>
 </div>
 
 <!-- Products Content -->
@@ -485,21 +484,21 @@
     <div>
       <h4>Navigation</h4>
       <ul class="footer-links">
-        <li><a href="/">Home</a></li>
-        <li><a href="/products">Products</a></li>
-        <li><a href="/craftsmanship">Craftsmanship</a></li>
-        <li><a href="/gallery">Gallery</a></li>
-        <li><a href="/b2b">B2B Solutions</a></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="craftsmanship.html">Craftsmanship</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="b2b.html">B2B Solutions</a></li>
       </ul>
     </div>
     <div>
       <h4>Services</h4>
       <ul class="footer-links">
-        <li><a href="/#services">Sofas & Sectionals</a></li>
-        <li><a href="/#services">Sofa Cum Beds</a></li>
-        <li><a href="/#services">Dining Sets</a></li>
-        <li><a href="/#services">Beds & Mattresses</a></li>
-        <li><a href="/#services">Repairs</a></li>
+        <li><a href="index.html#services">Sofas & Sectionals</a></li>
+        <li><a href="index.html#services">Sofa Cum Beds</a></li>
+        <li><a href="index.html#services">Dining Sets</a></li>
+        <li><a href="index.html#services">Beds & Mattresses</a></li>
+        <li><a href="index.html#services">Repairs</a></li>
       </ul>
     </div>
     <div>
@@ -507,7 +506,7 @@
       <ul class="footer-links">
         <li><a href="tel:+919742630886">+91 97426 30886</a></li>
         <li><a href="tel:+918881423496">+91 88814 23496</a></li>
-        <li><a href="/contact">Bandepalya, Bengaluru</a></li>
+        <li><a href="contact.html">Bandepalya, Bengaluru</a></li>
         <li><a href="https://wa.me/919742630886" target="_blank">WhatsApp Us</a></li>
       </ul>
     </div>
@@ -796,14 +795,7 @@ let PRODUCTS = [
 
 // Active tab and products rendering state
 let activeCategory = 'sofa';
-const pathParts = window.location.pathname.split('/').filter(Boolean);
-if (pathParts[0] === 'products' && pathParts[1]) {
-  activeCategory = pathParts[1];
-} else if (pathParts[0] === 'products' && !pathParts[1]) {
-  history.replaceState(null, '', '/products/sofa');
-}
 let selectedProductToCart = null;
-
 
 // Cart System State
 let cart = JSON.parse(localStorage.getItem('wc_cart') || '[]');
@@ -852,7 +844,7 @@ function renderProducts() {
           </div>
           <p class="product-card__price">${p.price}</p>
           <div class="product-card__actions">
-            <a href="/product/${p.category}/${p.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}" class="btn-outline">View Details</a>
+            <a href="product-detail.html?id=${p.id}" class="btn-outline">View Details</a>
             <button class="btn-primary" onclick="openAddToCartModal('${p.id}')">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:-2px;"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
               Add to Cart
@@ -865,15 +857,12 @@ function renderProducts() {
 }
 
 // Category filter
-function selectCategory(category, el) {
+function selectCategory(category) {
   activeCategory = category;
-  document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-  if (el) el.classList.add('active');
-  else if (event && event.target) event.target.classList.add('active');
-  
-  // Update URL for SEO/Sharing without reloading
-  history.pushState(null, '', '/products/' + category);
-  
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.classList.remove('active');
+  });
+  event.target.classList.add('active');
   renderProducts();
 }
 
@@ -1238,15 +1227,6 @@ async function syncCustomerSession() {
 async function initShop() {
   await syncCustomerSession();
   await loadDynamicProducts();
-  
-  // Set active tab on load
-  document.querySelectorAll('.tab-btn').forEach(btn => {
-    btn.classList.remove('active');
-    if (btn.getAttribute('onclick') && btn.getAttribute('onclick').includes(activeCategory)) {
-      btn.classList.add('active');
-    }
-  });
-  
   renderProducts();
   updateCartUI();
 }

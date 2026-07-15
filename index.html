@@ -314,14 +314,11 @@
     }
 
     nav.scrolled {
-      background: rgba(255, 255, 255, 0.98);
+      background: rgba(250, 248, 244, .96);
       backdrop-filter: blur(16px);
       padding: 14px 60px;
       box-shadow: 0 2px 40px rgba(0, 0, 0, .08)
     }
-    nav.scrolled .nav-logo { color: var(--charcoal); }
-    nav.scrolled .nav-links a { color: var(--charcoal); }
-    nav.scrolled .nav-hamburger span { background: var(--charcoal); }
 
     .nav-logo {
       font-family: 'Cormorant Garamond', serif;
@@ -436,7 +433,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(110deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.1) 60%, transparent 100%)
+      background: linear-gradient(110deg, rgba(26, 23, 20, .72) 0%, rgba(26, 23, 20, .28) 60%, transparent 100%)
     }
 
     .hero-slide:nth-child(1) {
@@ -486,26 +483,26 @@
       font-weight: 500;
       letter-spacing: .1em;
       text-transform: uppercase;
-      color: var(--charcoal)
+      color: var(--gold-light)
     }
 
     .hero-title {
       font-family: 'Cormorant Garamond', serif;
       font-size: clamp(48px, 6vw, 88px);
       font-weight: 300;
-      color: var(--charcoal);
+      color: #fff;
       line-height: 1.05;
       margin-bottom: 24px
     }
 
     .hero-title em {
       font-style: italic;
-      color: var(--gold)
+      color: var(--gold-light)
     }
 
     .hero-sub {
       font-size: 16px;
-      color: var(--charcoal);
+      color: rgba(255, 255, 255, .75);
       line-height: 1.7;
       margin-bottom: 44px;
       max-width: 480px
@@ -542,8 +539,8 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      border: 1.5px solid var(--charcoal);
-      color: var(--charcoal);
+      border: 1.5px solid rgba(255, 255, 255, .5);
+      color: #fff;
       padding: 16px 32px;
       border-radius: 4px;
       text-decoration: none;
@@ -554,8 +551,8 @@
     }
 
     .btn-outline:hover {
-      border-color: var(--charcoal);
-      background: rgba(42, 40, 38, 0.05)
+      border-color: #fff;
+      background: rgba(255, 255, 255, .08)
     }
 
     .hero-dots {
@@ -570,7 +567,7 @@
     .hero-dot {
       width: 28px;
       height: 3px;
-      background: rgba(42, 40, 38, .3);
+      background: rgba(255, 255, 255, .3);
       border-radius: 2px;
       cursor: pointer;
       transition: all .3s
@@ -590,7 +587,7 @@
       flex-direction: column;
       align-items: center;
       gap: 8px;
-      color: var(--charcoal);
+      color: rgba(255, 255, 255, .5);
       font-size: 11px;
       letter-spacing: .12em;
       text-transform: uppercase
@@ -599,7 +596,7 @@
     .scroll-line {
       width: 1px;
       height: 52px;
-      background: linear-gradient(to bottom, transparent, rgba(42, 40, 38, .4));
+      background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, .4));
       animation: scrollAnim 2s ease-in-out infinite
     }
 
@@ -1546,44 +1543,19 @@
     }
 
     /* ── FLOATING WA BUTTON ──────────────────────── */
-    .float-call {
-      position: fixed;
-      bottom: 104px;
-      right: 32px;
-      z-index: 500;
-      background: var(--gold);
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 8px 32px rgba(201, 168, 76, .5);
-      text-decoration: none;
-      transition: all .3s;
-    }
-    .float-call:hover {
-      transform: scale(1.1) translateY(-3px);
-      box-shadow: 0 16px 50px rgba(201, 168, 76, .6);
-    }
-    .float-call svg {
-      width: 28px;
-      height: 28px;
-      fill: #fff;
-    }
     .float-wa {
       position: fixed;
       bottom: 32px;
       right: 32px;
       z-index: 500;
-      background: var(--gold);
+      background: #25d366;
       width: 60px;
       height: 60px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 8px 32px rgba(201, 168, 76, .5);
+      box-shadow: 0 8px 32px rgba(37, 211, 102, .5);
       text-decoration: none;
       transition: all .3s;
       animation: waPulse 3s ease-in-out infinite
@@ -1591,7 +1563,7 @@
 
     .float-wa:hover {
       transform: scale(1.1) translateY(-3px);
-      box-shadow: 0 16px 50px rgba(201, 168, 76, .6)
+      box-shadow: 0 16px 50px rgba(37, 211, 102, .6)
     }
 
     .float-wa svg {
@@ -1944,22 +1916,9 @@
       }
 
       .float-wa {
-      position: fixed;
-      bottom: 32px;
-      right: 32px;
-      z-index: 500;
-      background: var(--gold);
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 8px 32px rgba(201, 168, 76, .5);
-      text-decoration: none;
-      transition: all .3s;
-      animation: waPulse 3s ease-in-out infinite
-    }
+        bottom: 20px;
+        right: 20px
+      }
 
       .footer-grid {
         grid-template-columns: 1fr
@@ -2123,13 +2082,6 @@
   <div class="cursor" id="cursor"></div>
   <div class="cursor-ring" id="cursorRing"></div>
 
-  <!-- Floating Call -->
-  <a class="float-call" href="tel:+919742630886" title="Call Us">
-    <svg viewBox="0 0 24 24" fill="currentColor">
-      <path d="M6.62 10.79a15.149 15.149 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
-    </svg>
-  </a>
-
   <!-- Floating WhatsApp -->
   <a class="float-wa"
     href="https://wa.me/919742630886?text=Hi!%20I%27m%20interested%20in%20your%20furniture%20at%20Weaver%27s%20Crafting.%20Can%20you%20help%20me?"
@@ -2145,31 +2097,31 @@
 
   <!-- Nav -->
   <nav id="mainNav">
-    <a href="/" class="nav-logo" style="padding: 0; display: flex; align-items: center;"><img src="logo.svg" onerror="this.onerror=null; this.src='logo.png';" alt="Weavers Crafting Logo" class="nav-logo-img"></a>
+    <a href="index.html" class="nav-logo" style="padding: 0; display: flex; align-items: center;"><img src="logo.svg" onerror="this.onerror=null; this.src='logo.png';" alt="Weavers Crafting Logo" class="nav-logo-img"></a>
     <ul class="nav-links">
-      <li><a href="/products">Products</a></li>
-      <li><a href="/craftsmanship">Craftsmanship</a></li>
-      <li><a href="/gallery">Gallery</a></li>
-      <li><a href="/about">About Us</a></li>
-      <li><a href="/contact">Contact</a></li>
-      <li><a href="/b2b">B2B Solutions</a></li>
+      <li><a href="products.html">Products</a></li>
+      <li><a href="craftsmanship.html">Craftsmanship</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="b2b.html">B2B Solutions</a></li>
     </ul>
-    <a href="https://wa.me/919742630886" target="_blank" class="nav-cta" style="background:var(--gold);color:var(--charcoal);">📱 WhatsApp Us</a>
-    <a href="/customer-login" class="nav-cta" id="navAccountBtn" style="background:var(--gold);color:var(--charcoal);margin-left:6px">👤 My Account</a>
+    <a href="https://wa.me/919742630886" target="_blank" class="nav-cta">📱 WhatsApp Us</a>
+    <a href="customer-login.html" class="nav-cta" id="navAccountBtn" style="background:var(--gold);color:var(--charcoal);margin-left:6px">👤 My Account</a>
     <div class="nav-hamburger" onclick="openMobileNav()"><span></span><span></span><span></span></div>
   </nav>
 
   <!-- Mobile Nav -->
   <div class="mobile-nav" id="mobileNav">
     <span class="mobile-nav-close" onclick="closeMobileNav()">✕</span>
-    <a href="/products" onclick="closeMobileNav()">Products</a>
-    <a href="/craftsmanship" onclick="closeMobileNav()">Craftsmanship</a>
-    <a href="/gallery" onclick="closeMobileNav()">Gallery</a>
-    <a href="/about" onclick="closeMobileNav()">About Us</a>
+    <a href="products.html" onclick="closeMobileNav()">Products</a>
+    <a href="craftsmanship.html" onclick="closeMobileNav()">Craftsmanship</a>
+    <a href="gallery.html" onclick="closeMobileNav()">Gallery</a>
+    <a href="about.html" onclick="closeMobileNav()">About Us</a>
     <a href="#services" onclick="closeMobileNav()">Services</a>
-    <a href="/contact" onclick="closeMobileNav()">Contact</a>
-    <a href="/b2b" onclick="closeMobileNav()">B2B Solutions</a>
-    <a href="/customer-login" onclick="closeMobileNav()">👤 My Account</a>
+    <a href="contact.html" onclick="closeMobileNav()">Contact</a>
+    <a href="b2b.html" onclick="closeMobileNav()">B2B Solutions</a>
+    <a href="customer-login.html" onclick="closeMobileNav()">👤 My Account</a>
   </div>
 
   <!-- Hero -->
@@ -2196,7 +2148,7 @@
           </svg>
           WhatsApp Now
         </a>
-        <a href="/products" class="btn-outline">View Products ↓</a>
+        <a href="products.html" class="btn-outline">View Products ↓</a>
       </div>
     </div>
     <div class="hero-dots" id="heroDots">
@@ -2726,6 +2678,198 @@
     </div>
   </section>
 
+  <!-- SEO LOCAL AREA TEXT (visible, keyword-rich) -->
+  <section style="background:var(--cream);padding:56px 60px">
+    <div style="max-width:1100px;margin:0 auto">
+      <h2 class="section-title reveal" style="font-size:clamp(22px,2.5vw,34px);margin-bottom:20px">Best Furniture Shop
+        Near You in <strong>South Bengaluru</strong></h2>
+      <p class="reveal" style="font-size:14px;line-height:1.9;color:var(--muted);max-width:900px">
+        Weaver's Crafting is a leading <strong>furniture shop in Bommanahalli, Bengaluru</strong> — trusted by 500+
+        families across South Bangalore for over 10 years. Whether you are searching for a <strong>sofa shop near Kudlu
+          Gate</strong>, a <strong>custom sofa maker near Electronic City</strong>, a <strong>sofa cum bed shop near HSR
+          Layout</strong>, or a <strong>dining table store near Silk Board</strong>, we are your nearest and most
+        trusted option. Our workshop is conveniently located on Hosur Road in Bandepalya, making us easily accessible
+        from <strong>BTM Layout, Madiwala, Hongasandra, Singasandra, Garvebhavipalya, Tavarekere,
+          Mangammanapalya</strong> and all surrounding areas. We craft every piece of furniture by hand using
+        premium-grade solid wood frames and high-density foam — no flat-pack, no compromise. Search for <em>furniture
+          shop near me Bommanahalli</em>, <em>sofa shop Bengaluru</em> or <em>custom sofa Bangalore</em> — and you will
+        find us.
+      </p>
+      <div class="reveal" style="margin-top:28px;display:flex;flex-wrap:wrap;gap:10px">
+        <!-- Keyword chips -->
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">Sofa
+          Shop Bommanahalli</span>
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">Custom
+          Furniture Bengaluru</span>
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">Sofa
+          Cum Bed Bangalore</span>
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">Dining
+          Table Bengaluru</span>
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">Furniture
+          Shop HSR Layout</span>
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">Furniture
+          Near Kudlu Gate</span>
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">Sofa
+          Repair Bengaluru</span>
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">L
+          Shape Sofa Bangalore</span>
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">Furniture
+          Near Electronic City</span>
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">Mattress
+          Shop Bommanahalli</span>
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">King
+          Size Bed Bengaluru</span>
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">Recliner
+          Chair Bangalore</span>
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">Best
+          Sofa Shop in Bommanahalli</span>
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">Affordable
+          Furniture Bengaluru</span>
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">Custom
+          Sofa Makers Bangalore</span>
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">Furniture
+          Store Near Me Bangalore</span>
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">Luxury
+          Sofa Bangalore</span>
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">Modern
+          Sofa Designs Bengaluru</span>
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">Cheap
+          Sofa Bangalore</span>
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">2
+          Seater Sofa Bengaluru</span>
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">3
+          Seater Sofa Bangalore</span>
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">Sectional
+          Sofa Bangalore</span>
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">Wooden
+          Furniture Bengaluru</span>
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">Solid
+          Wood Bed Bangalore</span>
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">Queen
+          Size Bed Bengaluru</span>
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">Bedroom
+          Furniture Bangalore</span>
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">Living
+          Room Furniture Bengaluru</span>
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">Office
+          Furniture Bangalore</span>
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">Furniture
+          Manufacturers Bangalore</span>
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">Direct
+          Factory Furniture Bangalore</span>
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">Budget
+          Furniture Bengaluru</span>
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">Premium
+          Furniture Bangalore</span>
+
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">Furniture
+          Shop BTM Layout</span>
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">Furniture
+          Shop Koramangala</span>
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">Furniture
+          Shop Madiwala</span>
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">Furniture
+          Shop Silk Board</span>
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">Furniture
+          Shop Hosur Road</span>
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">Furniture
+          Shop Hongasandra</span>
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">Furniture
+          Shop Singasandra</span>
+
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">Sofa
+          Repair Near Me Bangalore</span>
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">Sofa
+          Upholstery Bangalore</span>
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">Foam
+          Replacement Sofa Bangalore</span>
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">Old
+          Sofa Repair Bangalore</span>
+
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">Buy
+          Sofa Online Bangalore</span>
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">Buy
+          Furniture Near Me Bengaluru</span>
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">Best
+          Furniture Deals Bangalore</span>
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">Furniture
+          Offers Bengaluru</span>
+
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">Custom
+          Dining Table Bangalore</span>
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">Dining
+          Table Set Bengaluru</span>
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">6
+          Seater Dining Table Bangalore</span>
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">4
+          Seater Dining Table Bengaluru</span>
+
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">Recliner
+          Sofa Bangalore</span>
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">Leather
+          Sofa Bengaluru</span>
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">Fabric
+          Sofa Bangalore</span>
+        <span
+          style="background:#fff;border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:500;color:var(--teal)">Designer
+          Sofa Bengaluru</span>
+      </div>
+    </div>
+  </section>
 
   <style>
     .faq-item {
@@ -2840,11 +2984,11 @@
       <div>
         <h4>Navigation</h4>
         <ul class="footer-links">
-          <li><a href="/">Home</a></li>
-          <li><a href="/products">Products</a></li>
-          <li><a href="/craftsmanship">Craftsmanship</a></li>
-          <li><a href="/gallery">Gallery</a></li>
-          <li><a href="/b2b">B2B Solutions</a></li>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="craftsmanship.html">Craftsmanship</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="b2b.html">B2B Solutions</a></li>
         </ul>
       </div>
       <div>
@@ -2950,11 +3094,11 @@
         const badgeHtml = p.badge ? `<div class="product-tag">${p.badge}</div>` : '';
         grid.innerHTML += `
     <div class="product-card reveal${hidden ? ' hidden' : ''}${i % 4 === 1 ? ' reveal-delay-1' : i % 4 === 2 ? ' reveal-delay-2' : i % 4 === 3 ? ' reveal-delay-3' : ''}" data-index="${i}">
-      <div class="product-img" onclick="window.location.href='/product/${p.category}/' + p.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')">
+      <div class="product-img" onclick="window.location.href='product-detail.html?id=${p.id}'">
         <img src="${realImgUrl}" alt="${p.name || 'Product'}" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/600x400/2a6b7c/white?text=' + encodeURIComponent('${p.name || 'Product'}');">
         ${badgeHtml}
         <div class="product-wa-overlay">
-          <a href="/product/${p.category}/${p.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}" class="product-view-btn">
+          <a href="product-detail.html?id=${p.id}" class="product-view-btn">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:-1px;"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
             View
           </a>
