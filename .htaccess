@@ -1,5 +1,10 @@
-# Proxy sitemap.xml to auto-published Supabase Storage copy
+
 <IfModule mod_rewrite.c>
   RewriteEngine On
+  # Proxy sitemap.xml
   RewriteRule ^sitemap\.xml$ https://owgqxbgjmoqlhzztvety.supabase.co/storage/v1/object/public/site/sitemap.xml [P,L]
+  
+  # Product URLs
+  RewriteRule ^product/.*$ product-detail.html [L]
+  RewriteRule ^category/.*$ products.html [L]
 </IfModule>
