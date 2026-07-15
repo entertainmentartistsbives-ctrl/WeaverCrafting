@@ -4,6 +4,8 @@
   "rewrites": [
     { "source": "/sitemap.xml", "destination": "/api/sitemap" },
     { "source": "/locations/:slug", "destination": "/api/location?slug=:slug" },
-    { "source": "/api/(.*)", "destination": "/api/index" }
+    { "source": "/api/(.*)", "destination": "/api/index" },
+    { "source": "/product/(.*)", "destination": "/product-detail.html" },
+    { "source": "/category/(.*)", "destination": "/products.html" }
   ]
 }

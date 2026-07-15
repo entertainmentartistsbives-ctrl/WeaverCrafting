@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    { "source": "/product/**", "destination": "/product-detail.html" },
+    { "source": "/category/**", "destination": "/products.html" },
+    { "source": "/about", "destination": "/about.html" },
+    { "source": "/contact", "destination": "/contact.html" },
+    { "source": "/b2b", "destination": "/b2b.html" },
+    { "source": "/gallery", "destination": "/gallery.html" },
+    { "source": "/craftsmanship", "destination": "/craftsmanship.html" },
+    { "source": "/products", "destination": "/products.html" }
+  ]
+}
