@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en-IN" prefix="og: https://ogp.me/ns#">
 <head>
+  <base href="/">
   <link rel="icon" type="image/png" href="favicon.png">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<base href="/">
 
 <!-- ═══════════════════════════════════════════════
      PRIMARY SEO META TAGS
 ════════════════════════════════════════════════ -->
-<title>Weaver's Crafting | Product Details</title>\n
+<title>Weaver's Crafting | Product Details</title>
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://weaverscrafting.in/product-detail">
@@ -51,8 +53,8 @@
   }
 
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth;overflow-x:hidden}
-  body{background:var(--warm-white);color:var(--charcoal);font-family:'DM Sans',sans-serif;overflow-x:hidden}
+  html{scroll-behavior:smooth;overflow-x:clip}
+  body{background:var(--warm-white);color:var(--charcoal);font-family:'DM Sans',sans-serif;overflow-x:clip}
 
   /* ── CURSOR ──────────────────────────────────── */
   .cursor{position:fixed;width:10px;height:10px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transition:transform .15s ease,opacity .15s;mix-blend-mode:multiply}
@@ -210,30 +212,30 @@
 
 <!-- Nav -->
 <nav id="mainNav">
-  <a href="index.html" class="nav-logo" style="padding: 0; display: flex; align-items: center;"><img src="logo.svg" onerror="this.onerror=null; this.src='logo.png';" alt="Weavers Crafting Logo" class="nav-logo-img"></a>
+  <a href="/" class="nav-logo" style="padding: 0; display: flex; align-items: center;"><img src="logo.svg" onerror="this.onerror=null; this.src='logo.png';" alt="Weavers Crafting Logo" class="nav-logo-img"></a>
   <ul class="nav-links">
-    <li><a href="products.html">Products</a></li>
-    <li><a href="craftsmanship.html">Craftsmanship</a></li>
-    <li><a href="gallery.html">Gallery</a></li>
-    <li><a href="about.html">About Us</a></li>
-    <li><a href="contact.html">Contact</a></li>
-    <li><a href="b2b.html">B2B Solutions</a></li>
+    <li><a href="/products">Products</a></li>
+    <li><a href="/craftsmanship">Craftsmanship</a></li>
+    <li><a href="/gallery">Gallery</a></li>
+    <li><a href="/about">About Us</a></li>
+    <li><a href="/contact">Contact</a></li>
+    <li><a href="/b2b">B2B Solutions</a></li>
   </ul>
   <a href="https://wa.me/919742630886" target="_blank" class="nav-cta" style="background:var(--gold);color:var(--charcoal);">📱 WhatsApp Us</a>
-  <a href="customer-login.html" class="nav-cta" id="navAccountBtn" style="background:var(--gold);color:var(--charcoal);margin-left:6px">👤 My Account</a>
+  <a href="/customer-login" class="nav-cta" id="navAccountBtn" style="background:var(--gold);color:var(--charcoal);margin-left:6px">👤 My Account</a>
   <div class="nav-hamburger" onclick="openMobileNav()"><span></span><span></span><span></span></div>
 </nav>
 
 <!-- Mobile Nav -->
 <div class="mobile-nav" id="mobileNav">
   <span class="mobile-nav-close" onclick="closeMobileNav()">✕</span>
-  <a href="products.html" onclick="closeMobileNav()">Products</a>
-  <a href="craftsmanship.html" onclick="closeMobileNav()">Craftsmanship</a>
-  <a href="gallery.html" onclick="closeMobileNav()">Gallery</a>
-  <a href="about.html" onclick="closeMobileNav()">About Us</a>
-  <a href="contact.html" onclick="closeMobileNav()">Contact</a>
-  <a href="b2b.html" onclick="closeMobileNav()">B2B Solutions</a>
-  <a href="customer-login.html" onclick="closeMobileNav()">👤 My Account</a>
+  <a href="/products" onclick="closeMobileNav()">Products</a>
+  <a href="/craftsmanship" onclick="closeMobileNav()">Craftsmanship</a>
+  <a href="/gallery" onclick="closeMobileNav()">Gallery</a>
+  <a href="/about" onclick="closeMobileNav()">About Us</a>
+  <a href="/contact" onclick="closeMobileNav()">Contact</a>
+  <a href="/b2b" onclick="closeMobileNav()">B2B Solutions</a>
+  <a href="/customer-login" onclick="closeMobileNav()">👤 My Account</a>
 </div>
 
 <!-- Product Detail Workspace -->
@@ -241,9 +243,9 @@
   
   <!-- Breadcrumb -->
   <div class="breadcrumb" id="detailBreadcrumb">
-    <a href="index.html">Home</a>
+    <a href="/">Home</a>
     <span class="separator">></span>
-    <a href="products.html">Products</a>
+    <a href="/products">Products</a>
     <span class="separator">></span>
     <span id="breadcrumbCategory" style="text-transform: capitalize;">Category</span>
     <span class="separator">></span>
@@ -254,7 +256,7 @@
   <div id="productNotFoundError" style="display:none; text-align:center; padding:80px 20px;">
     <h2 style="font-size:24px; color:var(--text-dark); margin-bottom:16px;">Product Not Found</h2>
     <p style="color:var(--text-light); margin-bottom:24px;">The furniture collection item you are looking for does not exist or has been removed.</p>
-    <a href="products.html" class="btn-primary">Go Back to Products</a>
+    <a href="/products" class="btn-primary">Go Back to Products</a>
   </div>
 
   <!-- Detail Content Layout -->
@@ -274,25 +276,11 @@
       <div class="detail-info__badge" id="detailBadge" style="display:none;">Badge</div>
       <h1 class="detail-info__name" id="detailName">Product Name</h1>
       
-      <div class="star-rating" id="detailStars">
-        <!-- stars -->
-      </div>
+      
       
       <div class="detail-info__price" id="detailPrice">Price</div>
       
       <hr class="detail-info__divider">
-
-      <!-- Specifications Grid -->
-      <div class="detail-specs-grid">
-        <div class="detail-spec-item">
-          <strong>Base Dimensions</strong>
-          <span id="specDimensions">Width: -- | Depth: -- | Height: --</span>
-        </div>
-        <div class="detail-spec-item">
-          <strong>Materials Available</strong>
-          <span id="specMaterials">Loading...</span>
-        </div>
-      </div>
 
       <!-- Product Features -->
       <div class="product-features" style="margin-bottom: 24px; padding: 16px; background: rgba(201, 168, 76, 0.05); border: 1px solid rgba(201, 168, 76, 0.15); border-radius: 8px;">
@@ -333,12 +321,7 @@
         </div>
       </div>
 
-      <div class="detail-description">
-        <span class="variant-label" style="display:block; margin-bottom:6px;">Description</span>
-        <p id="detailDesc">Description paragraph...</p>
-      </div>
-
-      <div style="display:flex; flex-direction:column; gap:12px; margin-top:20px;">
+      <div style="display:flex; flex-direction:column; gap:12px; margin-top:20px; margin-bottom:20px;">
         <button class="btn-primary" style="font-size:16px; padding:16px;" onclick="addCurrentProductToCart()">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:-2px;"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
           Add to Cart
@@ -346,6 +329,56 @@
         <button class="btn-success" style="font-size:16px; padding:16px;" onclick="sendSingleWhatsAppEnquiry()">
           📱 WhatsApp Enquiry
         </button>
+      </div>
+
+      <div class="detail-description">
+        <span class="variant-label" style="display:block; margin-bottom:6px;">Description</span>
+        <p id="detailDesc">Description paragraph...</p>
+      </div>
+
+      <!-- Tabs Section -->
+      <div class="product-tabs-section" style="margin-top: 40px;">
+        <div class="product-tabs" style="display:flex; border-bottom:1px solid var(--border); margin-bottom:20px; gap:24px; overflow-x:auto; scrollbar-width:none;">
+          <button class="prod-tab-btn active" onclick="switchProdTab('details', this)" style="background:none; border:none; padding:10px 0; font-size:13px; font-weight:700; color:var(--text-dark); cursor:pointer; border-bottom:2px solid var(--primary); text-transform:uppercase; letter-spacing:0.05em; white-space:nowrap; transition:0.3s;">Product Details</button>
+          <button class="prod-tab-btn" onclick="switchProdTab('reviews', this)" style="background:none; border:none; padding:10px 0; font-size:13px; font-weight:600; color:var(--text-light); cursor:pointer; border-bottom:2px solid transparent; text-transform:uppercase; letter-spacing:0.05em; white-space:nowrap; transition:0.3s;">Reviews</button>
+          <button class="prod-tab-btn" onclick="switchProdTab('faqs', this)" style="background:none; border:none; padding:10px 0; font-size:13px; font-weight:600; color:var(--text-light); cursor:pointer; border-bottom:2px solid transparent; text-transform:uppercase; letter-spacing:0.05em; white-space:nowrap; transition:0.3s;">FAQs</button>
+        </div>
+        
+        <div id="tab-details" class="prod-tab-content" style="display:block;">
+          <h4 style="margin-bottom:12px; font-size:15px;">Key Features</h4>
+          <ul id="detailFeaturesList" style="list-style:disc; padding-left:20px; color:var(--text-mid); font-size:14px; line-height:1.8;">
+            <li>Premium quality materials and craftsmanship</li>
+            <li>Built for maximum durability and comfort</li>
+            <li>Customizable dimensions and upholstery available</li>
+          </ul>
+        </div>
+        
+        <div id="tab-reviews" class="prod-tab-content" style="display:none;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+            <h4 style="font-size:15px; margin:0;">Customer Reviews</h4>
+          </div>
+          <div id="productReviewsContainer" style="display:flex; flex-direction:column; gap:20px;">
+            <p style="color:var(--text-light); font-size:14px;">Loading reviews...</p>
+          </div>
+        </div>
+        
+        <div id="tab-faqs" class="prod-tab-content" style="display:none;">
+          <h4 style="margin-bottom:16px; font-size:15px;">Frequently Asked Questions</h4>
+          <div id="productFaqsContainer" style="display:flex; flex-direction:column; gap:16px;">
+            <div style="border-bottom:1px solid var(--border); padding-bottom:12px;">
+              <strong style="display:block; font-size:14px; margin-bottom:6px; color:var(--text-dark);">Can I customize the dimensions?</strong>
+              <p style="font-size:13px; color:var(--text-mid); margin:0; line-height:1.6;">Yes, most of our furniture can be customized to fit your space perfectly. Contact us via WhatsApp for a custom quote.</p>
+            </div>
+            <div style="border-bottom:1px solid var(--border); padding-bottom:12px;">
+              <strong style="display:block; font-size:14px; margin-bottom:6px; color:var(--text-dark);">What is the delivery time?</strong>
+              <p style="font-size:13px; color:var(--text-mid); margin:0; line-height:1.6;">Standard delivery takes 2-3 weeks depending on the level of customization required.</p>
+            </div>
+            <div style="padding-bottom:12px;">
+              <strong style="display:block; font-size:14px; margin-bottom:6px; color:var(--text-dark);">Do you provide installation?</strong>
+              <p style="font-size:13px; color:var(--text-mid); margin:0; line-height:1.6;">Yes, free installation is provided upon delivery within Bengaluru.</p>
+            </div>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -517,21 +550,21 @@
     <div>
       <h4>Navigation</h4>
       <ul class="footer-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="products.html">Products</a></li>
-        <li><a href="craftsmanship.html">Craftsmanship</a></li>
-        <li><a href="gallery.html">Gallery</a></li>
-        <li><a href="b2b.html">B2B Solutions</a></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/products">Products</a></li>
+        <li><a href="/craftsmanship">Craftsmanship</a></li>
+        <li><a href="/gallery">Gallery</a></li>
+        <li><a href="/b2b">B2B Solutions</a></li>
       </ul>
     </div>
     <div>
       <h4>Services</h4>
       <ul class="footer-links">
-        <li><a href="index.html#services">Sofas & Sectionals</a></li>
-        <li><a href="index.html#services">Sofa Cum Beds</a></li>
-        <li><a href="index.html#services">Dining Sets</a></li>
-        <li><a href="index.html#services">Beds & Mattresses</a></li>
-        <li><a href="index.html#services">Repairs</a></li>
+        <li><a href="/#services">Sofas & Sectionals</a></li>
+        <li><a href="/#services">Sofa Cum Beds</a></li>
+        <li><a href="/#services">Dining Sets</a></li>
+        <li><a href="/#services">Beds & Mattresses</a></li>
+        <li><a href="/#services">Repairs</a></li>
       </ul>
     </div>
     <div>
@@ -539,7 +572,7 @@
       <ul class="footer-links">
         <li><a href="tel:+919742630886">+91 97426 30886</a></li>
         <li><a href="tel:+918881423496">+91 88814 23496</a></li>
-        <li><a href="contact.html">Bandepalya, Bengaluru</a></li>
+        <li><a href="/contact">Bandepalya, Bengaluru</a></li>
         <li><a href="https://wa.me/919742630886" target="_blank">WhatsApp Us</a></li>
       </ul>
     </div>
@@ -886,10 +919,20 @@ let PRODUCTS = [
   }
 ];
 
-// Determine product from URL query
+// Determine product from URL query or path
 const urlParams = new URLSearchParams(window.location.search);
-const productId = urlParams.get('id');
-let activeProduct = PRODUCTS.find(p => p.id === productId);
+let urlRef = urlParams.get('id');
+if (!urlRef) {
+  const pathParts = window.location.pathname.split('/').filter(Boolean);
+  if (pathParts[0] === 'product' && pathParts.length >= 3) {
+    urlRef = pathParts[pathParts.length - 1];
+  }
+}
+let activeProduct = PRODUCTS.find(p => 
+  p.id === urlRef || 
+  (p.name && p.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') === urlRef)
+);
+let productId = activeProduct ? activeProduct.id : urlRef;
 
 // Selections state
 let selectedSize = "";
@@ -900,6 +943,8 @@ let selectedWoodType = "";
 // Cart State
 let cart = JSON.parse(localStorage.getItem('wc_cart') || '[]');
 let crossSellSelectedProduct = null;
+
+// Initialize product detail UI
 
 
 function onSizeSelect(val) {
@@ -922,8 +967,8 @@ function onColorSelect(val) { selectedColor = val; document.getElementById('feat
 function onMaterialSelect(val) { selectedMaterial = val; document.getElementById('featMaterial').innerText = val; }
 function onWoodSelect(val) { selectedWoodType = val; document.getElementById('featWood').innerText = val; }
 
-// Initialize product detail UI
 function initProductDetailUI() {
+
   if (!activeProduct) {
     document.getElementById('productNotFoundError').style.display = 'block';
     document.getElementById('productDetailLayout').style.display = 'none';
@@ -947,26 +992,26 @@ function initProductDetailUI() {
 
   // Star Rating
   const starsContainer = document.getElementById('detailStars');
-  starsContainer.innerHTML = '';
-  const fullStars = Math.floor(activeProduct.rating);
-  const hasHalf = activeProduct.rating % 1 >= 0.5;
-  for(let i = 1; i <= 5; i++) {
-    if(i <= fullStars) {
-      starsContainer.innerHTML += '<span class="star">★</span>';
-    } else if(i === fullStars + 1 && hasHalf) {
-      starsContainer.innerHTML += '<span class="star">½</span>';
-    } else {
-      starsContainer.innerHTML += '<span class="star">☆</span>';
+  if (starsContainer) {
+    starsContainer.innerHTML = '';
+    const fullStars = Math.floor(activeProduct.rating || 5);
+    const hasHalf = (activeProduct.rating || 5) % 1 >= 0.5;
+    for(let i = 1; i <= 5; i++) {
+      if(i <= fullStars) {
+        starsContainer.innerHTML += '<span class="star">★</span>';
+      } else if(i === fullStars + 1 && hasHalf) {
+        starsContainer.innerHTML += '<span class="star">½</span>';
+      } else {
+        starsContainer.innerHTML += '<span class="star">☆</span>';
+      }
     }
+    starsContainer.innerHTML += `<span class="rating-num">(${activeProduct.reviewCount || 0} reviews)</span>`;
   }
-  starsContainer.innerHTML += `<span class="rating-num">(${activeProduct.reviewCount} reviews)</span>`;
 
-  // Base Specs
-  document.getElementById('specDimensions').innerText = `W: ${activeProduct.dimensions.width} | D: ${activeProduct.dimensions.depth} | H: ${activeProduct.dimensions.height}`;
-  document.getElementById('specMaterials').innerText = activeProduct.materials.join(', ');
+  // Base Specs removed because feat elements are populated below
 
   // Description
-  document.getElementById('detailDesc').innerText = activeProduct.description;
+  document.getElementById('detailDesc').innerText = activeProduct.description || 'Description not available.';
 
   // Image Gallery
   const cleanName = activeProduct.name.replace(/\s+/g, '+');
@@ -1079,8 +1124,100 @@ function updateDetailQty(diff) {
   const qtyInput = document.getElementById('detailQty');
   let currentVal = parseInt(qtyInput.value) || 1;
   currentVal += diff;
-  if(currentVal < 1) currentVal = 1;
+  if (currentVal < 1) currentVal = 1;
   qtyInput.value = currentVal;
+}
+
+// ── PRODUCT TABS ──────────────────────────────────────
+function switchProdTab(tabId, btnElem) {
+  // Hide all contents
+  document.querySelectorAll('.prod-tab-content').forEach(el => el.style.display = 'none');
+  
+  // Show selected content
+  document.getElementById('tab-' + tabId).style.display = 'block';
+  
+  // Update button styles
+  document.querySelectorAll('.prod-tab-btn').forEach(btn => {
+    btn.classList.remove('active');
+    btn.style.fontWeight = '600';
+    btn.style.color = 'var(--text-light)';
+    btn.style.borderBottom = '2px solid transparent';
+  });
+  
+  if(btnElem) {
+    btnElem.classList.add('active');
+    btnElem.style.fontWeight = '700';
+    btnElem.style.color = 'var(--text-dark)';
+    btnElem.style.borderBottom = '2px solid var(--primary)';
+  }
+}
+
+// ── LOAD REVIEWS DYNAMICALLY ──────────────────────────
+async function loadProductReviews(productId) {
+  const container = document.getElementById('productReviewsContainer');
+  if(!container) return;
+  
+  try {
+    // Assuming a 'product_reviews' table exists or reusing 'images' with category 'review_<productId>'
+    const { data: reviewsData, error } = await supabaseClient
+      .from('images')
+      .select('*')
+      .like('category', `review_${productId}%`)
+      .order('created_at', { ascending: false });
+
+    if(error) throw error;
+
+    if(!reviewsData || reviewsData.length === 0) {
+      container.innerHTML = '<p style="color:var(--text-light); font-size:14px;">No reviews yet for this product. Be the first to review!</p>';
+      return;
+    }
+
+    let html = '';
+    reviewsData.forEach(rev => {
+      // Parse JSON from image_url which holds our review object
+      try {
+        const r = JSON.parse(rev.image_url);
+        
+        let starsHtml = '';
+        for(let i=0; i<5; i++) {
+          starsHtml += i < (r.rating||5) ? '<span style="color:var(--gold); font-size:14px;">★</span>' : '<span style="color:#ddd; font-size:14px;">★</span>';
+        }
+
+        const reviewImageHtml = r.image ? `<img src="${r.image}" style="width:100px; height:100px; object-fit:cover; border-radius:6px; margin-top:10px; cursor:pointer;" onclick="openReviewImage('${r.image}')" alt="Review Image">` : '';
+
+        html += `
+          <div style="border: 1px solid var(--border); padding: 16px; border-radius: 8px; background:var(--white);">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;">
+              <div>
+                <strong style="font-size:14px; color:var(--text-dark); display:block;">${r.name || 'Verified Customer'}</strong>
+                <span style="font-size:12px; color:var(--text-light);">${new Date(rev.created_at).toLocaleDateString()}</span>
+              </div>
+              <div>${starsHtml}</div>
+            </div>
+            <p style="font-size:13px; color:var(--text-mid); line-height:1.6; margin:0;">${r.text || ''}</p>
+            ${reviewImageHtml}
+          </div>
+        `;
+      } catch(e) {}
+    });
+
+    container.innerHTML = html || '<p style="color:var(--text-light); font-size:14px;">No reviews yet.</p>';
+  } catch(e) {
+    console.error('Error loading reviews:', e);
+    container.innerHTML = '<p style="color:var(--text-light); font-size:14px;">Unable to load reviews at this time.</p>';
+  }
+}
+
+function openReviewImage(src) {
+  // Reuse existing lightbox if available
+  const lbImg = document.getElementById('lightboxImg');
+  const lb = document.getElementById('lightbox');
+  if(lbImg && lb) {
+    lbImg.src = src;
+    lb.classList.add('active');
+  } else {
+    window.open(src, '_blank');
+  }
 }
 
 // Render cross sells
@@ -1136,7 +1273,7 @@ function renderCrossSells() {
           </div>
           <p class="product-card__price">${p.price}</p>
           <div class="product-card__actions">
-            <a href="product-detail.html?id=${p.id}" class="btn-outline">View Details</a>
+            <a href="/product/${p.category}/${p.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}" class="btn-outline">View Details</a>
             <button class="btn-primary" onclick="openAddToCartModal('${p.id}')">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:-2px;"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
               Add to Cart
@@ -1491,7 +1628,11 @@ async function loadDynamicProducts() {
       });
       if (dbProducts.length > 0) {
         PRODUCTS = dbProducts;
-        activeProduct = PRODUCTS.find(p => p.id === productId);
+        activeProduct = PRODUCTS.find(p => 
+          p.id === urlRef || 
+          (p.name && p.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') === urlRef)
+        );
+        if (activeProduct) productId = activeProduct.id;
       }
     }
 
@@ -1552,6 +1693,9 @@ async function initProductPage() {
   await syncCustomerSession();
   await loadDynamicProducts();
   initProductDetailUI();
+  if (activeProduct) {
+    loadProductReviews(activeProduct.id);
+  }
   updateCartUI();
 }
 

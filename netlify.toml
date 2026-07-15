@@ -3,3 +3,13 @@
   to = "https://owgqxbgjmoqlhzztvety.supabase.co/storage/v1/object/public/site/sitemap.xml"
   status = 200
   force = true
+
+[[redirects]]
+  from = "/product/*"
+  to = "/product-detail.html"
+  status = 200
+
+[[redirects]]
+  from = "/products/*"
+  to = "/products.html"
+  status = 200

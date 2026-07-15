@@ -192,6 +192,10 @@ td.actions{display:flex;gap:8px}
     🛒 <span>Product Enquiries</span>
     <small style="display:block;color:#555;font-size:.75em;margin-top:2px;margin-left:22px">Cart checkout & WhatsApp orders</small>
   </div>
+  <div class="nav-item" onclick="showPanel('reviews')" title="Manage customer reviews for products">
+    ⭐ <span>Product Reviews</span>
+    <small style="display:block;color:#555;font-size:.75em;margin-top:2px;margin-left:22px">Upload & manage reviews</small>
+  </div>
   <div class="nav-item" onclick="showPanel('seo')" title="Edit page titles, meta tags and sitemap">
     🔍 <span>SEO & Sitemap</span>
     <small style="display:block;color:#555;font-size:.75em;margin-top:2px;margin-left:22px">Titles, keywords, schema</small>
@@ -329,6 +333,57 @@ td.actions{display:flex;gap:8px}
       <table>
         <thead><tr><th>Date</th><th>Customer</th><th>Phone</th><th>Items</th><th>Type</th><th>Status</th><th>Actions</th></tr></thead>
         <tbody id="enquiryTableBody"><tr><td colspan="7" class="loading-row">Loading enquiries…</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- REVIEWS PANEL -->
+  <div id="panel-reviews" class="panel">
+    <div class="page-header">
+      <h1>⭐ Product Reviews</h1>
+      <p>Add and manage customer reviews for your products. You can also upload an image (like a WhatsApp screenshot or product photo) with the review.</p>
+    </div>
+    <div class="upload-card">
+      <h3>Add New Review</h3>
+      <div class="upload-row" style="align-items:flex-start;">
+        <div class="form-group" style="flex:1;">
+          <label>Select Product</label>
+          <select id="reviewProductId"></select>
+        </div>
+        <div class="form-group" style="flex:1;">
+          <label>Customer Name</label>
+          <input type="text" id="reviewName" placeholder="e.g. John Doe">
+        </div>
+        <div class="form-group" style="flex:1;">
+          <label>Rating (1-5)</label>
+          <select id="reviewRating">
+            <option value="5">⭐⭐⭐⭐⭐ 5</option>
+            <option value="4">⭐⭐⭐⭐ 4</option>
+            <option value="3">⭐⭐⭐ 3</option>
+            <option value="2">⭐⭐ 2</option>
+            <option value="1">⭐ 1</option>
+          </select>
+        </div>
+      </div>
+      <div class="upload-row" style="margin-top:16px;">
+        <div class="form-group" style="flex:2;">
+          <label>Review Text</label>
+          <textarea id="reviewText" rows="3" placeholder="What did the customer say?"></textarea>
+        </div>
+        <div class="form-group" style="flex:1;">
+          <label>Review Image (Optional)</label>
+          <input type="file" id="reviewImage" accept="image/*">
+        </div>
+        <div style="align-self:flex-end;">
+          <button class="btn btn-gold" onclick="submitProductReview()" style="height:40px; padding:0 24px;">➕ Add Review</button>
+        </div>
+      </div>
+      <div id="reviewUploadStatus" style="margin-top:12px;font-size:0.85em;color:#888"></div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Date</th><th>Product ID</th><th>Customer</th><th>Rating</th><th>Review</th><th>Image</th><th>Actions</th></tr></thead>
+        <tbody id="reviewTableBody"><tr><td colspan="7" class="loading-row">Loading reviews…</td></tr></tbody>
       </table>
     </div>
   </div>
@@ -652,6 +707,7 @@ function showPanel(name) {
   if (name === 'images') loadImages();
   if (name === 'customers') loadCustomers();
   if (name === 'enquiries') loadEnquiries();
+  if (name === 'reviews') loadReviews();
   if (name === 'seo') initSeoPanel();
 }
 
@@ -1335,6 +1391,119 @@ async function deleteImage(id) {
   if (error) { showAlert('Error: ' + error.message, 'error'); return; }
   showAlert('Image deleted.');
   loadImages();
+}
+
+// ── PRODUCT REVIEWS MANAGEMENT ──────────────────────────
+async function loadReviews() {
+  const tbody = document.getElementById('reviewTableBody');
+  tbody.innerHTML = '<tr><td colspan="7" class="loading-row">Loading reviews…</td></tr>';
+  
+  // Populate the select product dropdown in Reviews panel if empty
+  const selectProd = document.getElementById('reviewProductId');
+  if (selectProd.options.length === 0) {
+    const productOptions = Object.entries(PRODUCT_NAMES).map(([id,name]) => `<option value="${id}">${name}</option>`).join('');
+    selectProd.innerHTML = productOptions;
+  }
+
+  const { data, error } = await sb.from('images').select('*').like('category', 'review_%').order('created_at', { ascending: false });
+  if (error) { tbody.innerHTML = '<tr><td colspan="7" class="loading-row" style="color:#e74c3c">Error loading reviews.</td></tr>'; return; }
+  
+  if (!data || data.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="7" class="loading-row">No reviews found.</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = data.map(item => {
+    let r = {};
+    try { r = JSON.parse(item.image_url); } catch(e) {}
+    const pId = item.category.replace('review_', '');
+    const pName = PRODUCT_NAMES[pId] || pId;
+    const imgHtml = r.image ? `<img src="${r.image}" style="height:50px; border-radius:4px;">` : '-';
+    
+    return `
+      <tr>
+        <td>${new Date(item.created_at).toLocaleDateString()}</td>
+        <td><strong>${pName}</strong><br><small style="color:#777">${pId}</small></td>
+        <td>${r.name || 'Anonymous'}</td>
+        <td style="color:#f1c40f">${'★'.repeat(r.rating||5)}</td>
+        <td><div style="max-width:250px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="${r.text || ''}">${r.text || ''}</div></td>
+        <td>${imgHtml}</td>
+        <td class="actions">
+          <button class="btn btn-danger btn-sm" onclick="deleteReview('${item.id}')">Delete</button>
+        </td>
+      </tr>
+    `;
+  }).join('');
+}
+
+async function submitProductReview() {
+  const btn = event.target;
+  const status = document.getElementById('reviewUploadStatus');
+  const pId = document.getElementById('reviewProductId').value;
+  const rName = document.getElementById('reviewName').value.trim();
+  const rRating = document.getElementById('reviewRating').value;
+  const rText = document.getElementById('reviewText').value.trim();
+  const fileInput = document.getElementById('reviewImage');
+
+  if (!pId) { showAlert('Please select a product first.', 'error'); return; }
+  
+  btn.disabled = true;
+  status.textContent = 'Submitting review...';
+
+  try {
+    let uploadedImgUrl = '';
+    
+    // Upload image if provided
+    if (fileInput.files && fileInput.files.length > 0) {
+      status.textContent = 'Uploading review image to Cloudinary...';
+      const file = fileInput.files[0];
+      const fd = new FormData();
+      fd.append('file', file);
+      fd.append('upload_preset', CLOUDINARY_PRESET);
+      const res = await fetch(CLOUDINARY_URL, { method: 'POST', body: fd });
+      const cData = await res.json();
+      if (!res.ok) throw new Error(cData.error?.message || 'Cloudinary upload failed');
+      uploadedImgUrl = cData.secure_url;
+    }
+
+    const reviewObj = {
+      name: rName || 'Verified Customer',
+      rating: parseInt(rRating) || 5,
+      text: rText,
+      image: uploadedImgUrl
+    };
+
+    status.textContent = 'Saving to database...';
+    const { error } = await sb.from('images').insert([{ 
+      category: 'review_' + pId, 
+      image_url: JSON.stringify(reviewObj) 
+    }]);
+
+    if (error) throw error;
+    
+    showAlert('Product review successfully added!');
+    
+    // Clear form
+    document.getElementById('reviewName').value = '';
+    document.getElementById('reviewText').value = '';
+    fileInput.value = '';
+    status.textContent = '';
+    
+    loadReviews();
+  } catch (e) {
+    showAlert('Error saving review: ' + e.message, 'error');
+    status.textContent = '';
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+async function deleteReview(id) {
+  if (!confirm('Are you sure you want to delete this review?')) return;
+  const { error } = await sb.from('images').delete().eq('id', id);
+  if (error) { showAlert('Error deleting review: ' + error.message, 'error'); return; }
+  showAlert('Review deleted successfully.');
+  loadReviews();
 }
 
 // ── SEED DEFAULT PRODUCTS ────────────────────────────

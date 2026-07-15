@@ -688,6 +688,9 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+  position: sticky;
+  top: 100px;
+  align-self: start;
 }
 
 .detail-gallery__main-wrap {

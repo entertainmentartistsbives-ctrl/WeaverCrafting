@@ -5,6 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<base href="/">
 
 <!-- ═══════════════════════════════════════════════
      PRIMARY SEO META TAGS
@@ -280,7 +281,7 @@
 <nav id="mainNav">
   <a href="index.html" class="nav-logo" style="padding: 0; display: flex; align-items: center;"><img src="logo.svg" onerror="this.onerror=null; this.src='logo.png';" alt="Weavers Crafting Logo" class="nav-logo-img"></a>
   <ul class="nav-links">
-    <li><a href="products.html">Products</a></li>
+    <li><a href="/products/sofa">Products</a></li>
     <li><a href="craftsmanship.html">Craftsmanship</a></li>
     <li><a href="gallery.html">Gallery</a></li>
     <li><a href="about.html">About Us</a></li>
@@ -295,7 +296,7 @@
 <!-- Mobile Nav -->
 <div class="mobile-nav" id="mobileNav">
   <span class="mobile-nav-close" onclick="closeMobileNav()">✕</span>
-  <a href="products.html" onclick="closeMobileNav()">Products</a>
+  <a href="/products/sofa" onclick="closeMobileNav()">Products</a>
   <a href="craftsmanship.html" onclick="closeMobileNav()">Craftsmanship</a>
   <a href="gallery.html" onclick="closeMobileNav()">Gallery</a>
   <a href="about.html" onclick="closeMobileNav()">About Us</a>
@@ -485,7 +486,7 @@
       <h4>Navigation</h4>
       <ul class="footer-links">
         <li><a href="index.html">Home</a></li>
-        <li><a href="products.html">Products</a></li>
+        <li><a href="/products/sofa">Products</a></li>
         <li><a href="craftsmanship.html">Craftsmanship</a></li>
         <li><a href="gallery.html">Gallery</a></li>
         <li><a href="b2b.html">B2B Solutions</a></li>
@@ -794,7 +795,9 @@ let PRODUCTS = [
 ];
 
 // Active tab and products rendering state
-let activeCategory = 'sofa';
+let activeCategory = window.location.pathname.includes('/products/') 
+  ? window.location.pathname.split('/').pop() 
+  : 'sofa';
 let selectedProductToCart = null;
 
 // Cart System State
@@ -834,18 +837,20 @@ function renderProducts() {
     productsGrid.innerHTML += `
       <div class="product-card">
         ${badgeHtml}
-        <div class="product-card__image-container">
+        <a href="/product/${p.category}/${p.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}" class="product-card__image-container" style="display:block;">
           <img src="${realImgUrl}" alt="${p.name}" class="product-card__image" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/600x400/2a6b7c/white?text=' + encodeURIComponent('${p.name}');">
-        </div>
+        </a>
         <div class="product-card__body">
-          <h3 class="product-card__name">${p.name}</h3>
+          <a href="/product/${p.category}/${p.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}" style="text-decoration:none; color:inherit;">
+            <h3 class="product-card__name">${p.name}</h3>
+          </a>
           <div class="star-rating">
             ${starsHtml}
             <span class="rating-num">(${p.reviewCount} reviews)</span>
           </div>
-          <p class="product-card__price">${p.price}</p>
+          <p class="product-card__price">${p.price === 'price on request' || p.price === 'Price on request' ? 'Price on Request' : p.price}</p>
           <div class="product-card__actions">
-            <a href="product-detail.html?id=${p.id}" class="btn-outline">View Details</a>
+            <a href="/product/${p.category}/${p.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}" class="btn-outline">View Details</a>
             <button class="btn-primary" onclick="openAddToCartModal('${p.id}')">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:-2px;"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
               Add to Cart
@@ -860,10 +865,19 @@ function renderProducts() {
 // Category filter
 function selectCategory(category) {
   activeCategory = category;
+  history.pushState(null, '', '/products/' + category);
   document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.classList.remove('active');
   });
-  event.target.classList.add('active');
+  if (event && event.target && event.target.classList.contains('tab-btn')) {
+    event.target.classList.add('active');
+  } else {
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      if (btn.getAttribute('onclick') === `selectCategory('${category}')`) {
+        btn.classList.add('active');
+      }
+    });
+  }
   renderProducts();
 }
 
@@ -1228,6 +1242,12 @@ async function syncCustomerSession() {
 async function initShop() {
   await syncCustomerSession();
   await loadDynamicProducts();
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.classList.remove('active');
+    if (btn.getAttribute('onclick') === `selectCategory('${activeCategory}')`) {
+      btn.classList.add('active');
+    }
+  });
   renderProducts();
   updateCartUI();
 }
