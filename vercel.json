@@ -5,7 +5,7 @@
     { "source": "/sitemap.xml", "destination": "/api/sitemap" },
     { "source": "/locations/:slug", "destination": "/api/location?slug=:slug" },
     { "source": "/product/(.*)", "destination": "/product-detail.html" },
-    { "source": "/products/(.*)", "destination": "/products.html" },
+    { "source": "/products/(.*)", "destination": "/shop.html" },
     { "source": "/api/(.*)", "destination": "/api/index" }
   ]
 }
