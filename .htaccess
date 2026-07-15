@@ -6,5 +6,5 @@
   
   # Product URLs
   RewriteRule ^product/.*$ product-detail.html [L]
-  RewriteRule ^category/.*$ products.html [L]
+  RewriteRule ^products/.*$ products.html [L]
 </IfModule>
