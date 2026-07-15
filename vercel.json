@@ -4,8 +4,12 @@
   "rewrites": [
     { "source": "/sitemap.xml", "destination": "/api/sitemap" },
     { "source": "/locations/:slug", "destination": "/api/location?slug=:slug" },
-    { "source": "/product/:path*", "destination": "/product-detail.html" },
-    { "source": "/products/:path*", "destination": "/shop.html" },
+    { "source": "/product/:path*", "destination": "/product-detail" },
+    { "source": "/products/sofa", "destination": "/shop" },
+    { "source": "/products/dining", "destination": "/shop" },
+    { "source": "/products/bed", "destination": "/shop" },
+    { "source": "/products/commercial", "destination": "/shop" },
+    { "source": "/products/:path*", "destination": "/shop" },
     { "source": "/api/:path*", "destination": "/api/index" }
   ]
 }
