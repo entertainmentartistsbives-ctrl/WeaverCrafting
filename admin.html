@@ -1006,7 +1006,7 @@ function renderEnquiryTable(enquiries) {
       <td><span class="badge" style="background:rgba(52,152,219,.15);color:${statusColor}">${e.status || 'new'}</span></td>
       <td class="actions" style="flex-direction:column;align-items:flex-start">
         <button class="btn btn-edit btn-sm" onclick="viewEnquiry('${e.id}')">View</button>
-        <a href="https://wa.me/91${waPhone}" target="_blank" class="btn btn-sm" style="background:#1a3a1a;color:#25d366;text-decoration:none;display:inline-block;margin-top:4px">WhatsApp</a>
+        <a href="https://wa.me/91${waPhone}" target="_blank" class="btn btn-sm" style="background:#1a3a1a;color:var(--gold);text-decoration:none;display:inline-block;margin-top:4px">WhatsApp</a>
       </td>
     </tr>`;
   }).join('');
