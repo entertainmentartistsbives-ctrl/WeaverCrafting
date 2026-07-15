@@ -1,1 +1,3 @@
 /sitemap.xml  https://owgqxbgjmoqlhzztvety.supabase.co/storage/v1/object/public/site/sitemap.xml  200
+/products/:category /products.html 200
+/product/:slug /product-detail.html 200
