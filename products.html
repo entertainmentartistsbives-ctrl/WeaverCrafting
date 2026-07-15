@@ -829,6 +829,8 @@ function renderProducts() {
     }
 
     const badgeHtml = p.badge ? `<div class="product-card__badge">${p.badge}</div>` : '';
+    const urlSlug = p.name ? p.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') : p.id;
+    const productUrl = `/product/${p.category || 'misc'}/${urlSlug}`;
 
     productsGrid.innerHTML += `
       <div class="product-card">
@@ -844,7 +846,7 @@ function renderProducts() {
           </div>
           <p class="product-card__price">${p.price}</p>
           <div class="product-card__actions">
-            <a href="product-detail.html?id=${p.id}" class="btn-outline">View Details</a>
+            <a href="${productUrl}" class="btn-outline">View Details</a>
             <button class="btn-primary" onclick="openAddToCartModal('${p.id}')">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:-2px;"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
               Add to Cart
