@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Static site with SEO build step",
   "engines": {
-    "node": "24.x"
+    "node": "20.x"
   },
   "scripts": {
     "build": "node build-seo.js",
