@@ -648,7 +648,7 @@ td.actions{display:flex;gap:8px}
       </div>
       <div class="form-group full">
         <label>📐 Available Sizes <small style="color:#555;font-weight:400">(separate with commas)</small></label>
-        <input id="pSizes" placeholder="2 Seater, 3 Seater, L-Shape">
+        <input id="pSizes" placeholder="2 Seater, 3 Seater, L-Shape" oninput="renderProductImageThumbnails()">
       </div>
       <div class="form-group full">
         <label>🎨 Available Colors <small style="color:#555;font-weight:400">(separate with commas)</small></label>
@@ -663,7 +663,7 @@ td.actions{display:flex;gap:8px}
         <input id="pMaterials" placeholder="Fabric, Leatherette, Velvet">
       </div>
       <div class="form-group full">
-        <label>🔗 Image Links <small style="color:#555;font-weight:400">(paste URLs, separate with commas — or use upload below)</small></label>
+        <label>🔗 Image Links <small style="color:#555;font-weight:400">(Order matches sizes! 1st image = 1st size. Separate with commas or use upload below)</small></label>
         <input id="pImages" placeholder="https://res.cloudinary.com/…, https://…" oninput="renderProductImageThumbnails()">
         <div id="pImagesThumbnails" style="display:flex; gap:10px; margin-top:10px; flex-wrap:wrap;"></div>
       </div>
@@ -1152,12 +1152,15 @@ function renderProductImageThumbnails() {
   container.innerHTML = '';
   
   let urls = input.value.split(',').map(s => s.trim()).filter(Boolean);
+  let sizes = document.getElementById('pSizes').value.split(',').map(s => s.trim()).filter(Boolean);
   
   urls.forEach((url, index) => {
+    let sizeLabel = sizes[index] ? sizes[index] : `Image ${index + 1}`;
     container.innerHTML += `
-      <div style="position:relative; width:80px; height:80px; border:1px solid #333; border-radius:4px; overflow:hidden; background:#000;">
-        <img src="${url}" style="width:100%; height:100%; object-fit:cover;" onerror="this.src='https://placehold.co/80/222/666?text=Image'">
+      <div style="position:relative; width:100px; height:100px; border:1px solid #333; border-radius:4px; overflow:hidden; background:#000;">
+        <img src="${url}" style="width:100%; height:100%; object-fit:cover;" onerror="this.src='https://placehold.co/100/222/666?text=Image'">
         <button type="button" onclick="removeProductImageThumbnail(${index})" title="Remove Image" style="position:absolute; top:4px; right:4px; background:rgba(231,76,60,0.9); color:white; border:none; border-radius:50%; width:22px; height:22px; cursor:pointer; font-size:12px; font-weight:bold; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 5px rgba(0,0,0,0.5);">✕</button>
+        <div style="position:absolute; bottom:0; left:0; right:0; background:rgba(197, 160, 89, 0.9); color:#000; font-size:10px; font-weight:bold; text-align:center; padding:3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="${sizeLabel}">${sizeLabel}</div>
       </div>
     `;
   });
